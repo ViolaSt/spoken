@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20170529145311) do
-
-
+ActiveRecord::Schema.define(version: 20170529154346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +28,6 @@ ActiveRecord::Schema.define(version: 20170529145311) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
-
   create_table "comments", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -41,7 +37,6 @@ ActiveRecord::Schema.define(version: 20170529145311) do
     t.index ["reading_id"], name: "index_comments_on_reading_id"
   end
 
-
   create_table "followings", force: :cascade do |t|
     t.integer "author_id"
     t.integer "follower_id"
@@ -50,7 +45,6 @@ ActiveRecord::Schema.define(version: 20170529145311) do
     t.index ["author_id"], name: "index_followings_on_author_id"
     t.index ["follower_id"], name: "index_followings_on_follower_id"
   end
-
 
   create_table "readings", force: :cascade do |t|
     t.boolean "like"
@@ -77,6 +71,10 @@ ActiveRecord::Schema.define(version: 20170529145311) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "tagline"
+    t.text "bio"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
