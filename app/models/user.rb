@@ -14,4 +14,6 @@ class User < ApplicationRecord
     follower_followings.map {|following| following.author}
   end
   # possible improvement: has_many :followers, through: :author_followings
+
+  validates :email, uniqueness: true
 end
