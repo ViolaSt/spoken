@@ -1,0 +1,57 @@
+.card {
+  height: 300px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  background-size: cover !important;
+  color: white;
+  position: relative;
+  margin-top: 20px;
+  border-radius: 3px;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+.card-user {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.card-category {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 13px;
+}
+.card-description {
+  position: absolute;
+}
+
+.card-description h2 {
+  font-size: 13px;
+  position: absolute;
+  bottom: 90px;
+}
+
+.card-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index:2;
+  background: black;
+  opacity: 0;
+}
+.card-link:hover{
+  opacity: 0.1;
+}
+
+h3 a {
+  margin-left: 10px;
+  color: black;
+  text-decoration: none;
+  &:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
+}
+
