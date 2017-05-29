@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529142127) do
+ActiveRecord::Schema.define(version: 20170529144119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,27 @@ ActiveRecord::Schema.define(version: 20170529142127) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.bigint "reading_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reading_id"], name: "index_comments_on_reading_id"
+  end
+
+  create_table "readings", force: :cascade do |t|
+    t.boolean "like"
+    t.boolean "recommended"
+    t.text "recommendation_content"
+    t.bigint "user_id"
+    t.bigint "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_readings_on_article_id"
+    t.index ["user_id"], name: "index_readings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,4 +67,7 @@ ActiveRecord::Schema.define(version: 20170529142127) do
   end
 
   add_foreign_key "articles", "users"
+  add_foreign_key "comments", "readings"
+  add_foreign_key "readings", "articles"
+  add_foreign_key "readings", "users"
 end
