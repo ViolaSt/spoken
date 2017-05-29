@@ -1,33 +1,14 @@
 Rails.application.routes.draw do
-  get 'readings/index'
-
-  get 'readings/create_like'
-
-  get 'readings/destroy_like'
-
-  get 'readings/create_recommendation'
-
-  get 'readings/edit_recommendation'
-
-  get 'readings/update_recommendation'
-
-  get 'readings/destroy_recommendation'
-  get 'followings/create'
-
-  get 'followings/destroy'
-
-  get 'comments/index'
-
-  get 'comments/show'
-
-  get 'comments/create'
-
-  get 'comments/update'
-
-  get 'comments/destroy'
-
-  resources :articles
   devise_for :users
+  resources :users, only: [:show, :index ] do
+    resources :articles do
+      resources :comments, only: [:index, :show, :create, :update, :destroy]
+      resources :followings, only: [:create, :destroy]
+      resources :readings, only: [:index, :create_like, :destroy_like, :create_recommendation, :edit_recommendation, :update_recommendation, :destroy_recommendation ]
+      end
+  end
+
   root to: 'pages#home'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
