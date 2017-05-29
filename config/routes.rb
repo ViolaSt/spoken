@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  get 'readings/index'
+
+  get 'readings/create_like'
+
+  get 'readings/destroy_like'
+
+  get 'readings/create_recommendation'
+
+  get 'readings/edit_recommendation'
+
+  get 'readings/update_recommendation'
+
+  get 'readings/destroy_recommendation'
   get 'followings/create'
 
   get 'followings/destroy'
