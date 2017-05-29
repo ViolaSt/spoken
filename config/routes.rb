@@ -12,6 +12,19 @@ Rails.application.routes.draw do
   get 'readings/update_recommendation'
 
   get 'readings/destroy_recommendation'
+  get 'followings/create'
+
+  get 'followings/destroy'
+
+  get 'comments/index'
+
+  get 'comments/show'
+
+  get 'comments/create'
+
+  get 'comments/update'
+
+  get 'comments/destroy'
 
   resources :articles
   devise_for :users
