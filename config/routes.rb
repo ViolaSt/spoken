@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'followings/create'
+
+  get 'followings/destroy'
+
   get 'comments/index'
 
   get 'comments/show'
