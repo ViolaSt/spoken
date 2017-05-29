@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'followings/create'
+
+  get 'followings/destroy'
+
   resources :articles
   devise_for :users
   root to: 'pages#home'
