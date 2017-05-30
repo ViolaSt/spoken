@@ -3,7 +3,6 @@ class Article < ApplicationRecord
 
   validates :title, :description, presence: true
   mount_uploader :photo, PhotoUploader
-
 end
 
 
