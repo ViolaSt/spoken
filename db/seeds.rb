@@ -3,6 +3,7 @@ require 'faker'
 User.create(
   first_name: "Jay",
   last_name: "Gatsby",
+  tagline: "Amazing author",
   email: "jay.gatsby@gmail.com",
   password: "123456",
   remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496151659/gatsby_yksekr.jpg"
@@ -39,9 +40,10 @@ User.create(
 30.times do
   Article.create(
     title: Faker::Lorem.sentence(rand(2..10)).chomp('.'),
-    description: Faker::Lorem.paragraphs(1),
+    content: Faker::Lorem.paragraphs(1),
     user_id: rand(1..5),
     remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496142349/sxzmqgim9xx4rxdyfmpl.jpg"
+    user_id: rand(1..5)
   )
 end
 
