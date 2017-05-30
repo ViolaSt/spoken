@@ -1,7 +1,11 @@
 class Article < ApplicationRecord
   belongs_to :user
+  has_many :readings
+  has_many :comments, through: :readings
 
   validates :title, :description, :date , :duration, :audio_file, :category , presence: true
+
+  mount_uploader :photo, PhotoUploader
 
   # Gets a complete link from youtube(ex: "https://www.youtube.com/watch?v=O8EMo-_6ynI")
   # and strips it to only the provider ("YouTube") and the id ("O8EMo-_6ynI"), results in a Hash
@@ -37,9 +41,4 @@ class Article < ApplicationRecord
   def video_id
     parse_video_url(audio_file)[:id]
   end
-
-  # def video_duration
-  #   video = Yt::Video.new id: 'BPNYv0vd78A'
-  #   video.duration
-  # end
 end

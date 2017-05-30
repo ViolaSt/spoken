@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :authenticate_user!, only: [ :index ]
   # GET /articles
   # GET /articles.json
   def index
@@ -10,6 +10,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @reading = Reading.find_or_create_by(user: current_user, article: @article)
   end
 
   # GET /articles/new
@@ -70,6 +71,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :description, :duration, :audio_file, :category, :user_id)
+      params.require(:article).permit(:title, :description, :duration, :audio_file, :category, :user_id, :photo, "photo_cache")
     end
 end

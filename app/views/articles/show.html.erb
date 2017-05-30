@@ -1,23 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
+<div class="container">
+ <div class="row">
+  <div class="col-md-8 offset-md-4">
+  <p> <%= @article.title %> </p>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1 offset-sm-4">
+      <p>Avatar</p>
+    </div>
+    <div class="col-md-3">
+     <p>  <%= @article.user.first_name %> <%= @article.user.last_name %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-primary" %>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      <p> <%= @article.user.tagline %></p>
+      </div>
+    </div>
+
+
+  </div>
+</div>
 
 <p>
   <strong>Description:</strong>
   <%= @article.description %>
 </p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @article.date %>
-</p>
+
 
 <p>
   <strong>Duration:</strong>
-  <%= @article.duration %>
+  <%= @article.duration %> min
 </p>
 
 <iframe id="ytplayer" type="text/html" width="640" height="360"
@@ -29,10 +47,25 @@
   <%= @article.category %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @article.user %>
-</p>
+
+<% if @reading.like  %>
+You have liked this page
+<% else %>
+not liked
+<% end %>
+
+<%= link_to 'Like', like_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Unlike', unlike_article_readings_path(@article), :method=> :post  %> |
+
+<% if @reading.recommended  %>
+You have recommended this page
+<% else %>
+not recommended
+<% end %>
+
+<%= link_to 'recommended', recommend_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Not recommended', unrecommend_article_readings_path(@article), :method=> :post  %> |
+
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>

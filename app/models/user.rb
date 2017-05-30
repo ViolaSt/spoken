@@ -7,6 +7,8 @@ class User < ApplicationRecord
   # follower_followings:
   has_many :author_followings, foreign_key: "author_id", class_name: "Following"
   has_many :follower_followings, foreign_key: "follower_id", class_name: "Following"
+
+
   def followers
     author_followings.map {|following| following.follower}
   end
@@ -16,4 +18,6 @@ class User < ApplicationRecord
   # possible improvement: has_many :followers, through: :author_followings
 
   validates :email, uniqueness: true
+  mount_uploader :photo, PhotoUploader
+
 end
