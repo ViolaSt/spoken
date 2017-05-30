@@ -1,27 +1,39 @@
 <p id="notice"><%= notice %></p>
-<div class="container">
 
-<h1>All Articles</h1>
+<h1>Articles</h1>
 
-  <div class="row">
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Audio file</th>
+      <th>Category</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
     <% @articles.each do |article| %>
-      <%= link_to article do %>
-
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="card">
-          <%= cl_image_tag(article_image_path(article)) %>
-
-
-          <div class="card-category text-center">
-            <h2><%= article.title %></h2>
-            <h3><%= article.duration %></h3>
-          </div>
-        </div>
-      </div>
-      <% end %>
+      <tr>
+        <td><%= article.title %></td>
+        <td><%= article.description %></td>
+        <td><%= article.date %></td>
+        <td><%= article.duration %></td>
+        <td><%= article.audio_file %></td>
+        <td><%= article.category %></td>
+        <td><%= article.user %></td>
+        <td><%= link_to 'Show', article %></td>
+        <td><%= link_to 'Edit', edit_article_path(article) %></td>
+        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
     <% end %>
-  </div>
-</div>
+  </tbody>
+</table>
 
+<br>
 
-
+<%= link_to 'New Article', new_article_path %>
