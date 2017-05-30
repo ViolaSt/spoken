@@ -45,6 +45,14 @@ not liked
 <%= link_to 'Like', like_article_readings_path(@article), :method=> :post  %> |
 <%= link_to 'Unlike', unlike_article_readings_path(@article), :method=> :post  %> |
 
+<% if @reading.recommended  %>
+You have recommended this page
+<% else %>
+not recommended
+<% end %>
+
+<%= link_to 'recommended', recommend_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Not recommended', unrecommend_article_readings_path(@article), :method=> :post  %> |
 
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
