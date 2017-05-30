@@ -1,17 +1,29 @@
 class ReadingsController < ApplicationController
+before_action :set_article, only: [:like, :unlike, :recommend, :unrecommend]
+
   def index
   end
 
-  def create_like
+  def like
+    @reading.like = true
+    byebug
+    @reading.save
+    redirect_to @article
   end
 
-  def destroy_like
+  def unlike
+    @reading.like = false
+    @reading.save
+    redirect_to @article
   end
 
-  def create_recommendation
+  def recommend
+
+
+
   end
 
-  def edit_recommendation
+  def unrecommend
   end
 
   def update_recommendation
@@ -22,4 +34,13 @@ class ReadingsController < ApplicationController
 
   def destroy_recommendation
   end
+
+  def set_article
+    @article = Article.find(params[:article_id])
+  end
+
+  def set_reading
+    @reading = Reading.find_by(user: current_user, article: @article)
+  end
 end
+
