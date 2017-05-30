@@ -10,6 +10,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @reading = Reading.find_or_create_by(user: current_user, article: @article)
   end
 
   # GET /articles/new

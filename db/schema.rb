@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529160626) do
+ActiveRecord::Schema.define(version: 20170530125518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20170529160626) do
   end
 
   create_table "readings", force: :cascade do |t|
-    t.boolean "like"
+    t.boolean "like", default: false
     t.boolean "recommended"
     t.text "recommendation_content"
     t.bigint "user_id"

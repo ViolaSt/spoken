@@ -12,12 +12,12 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @article.date %>
+  <%= @article.date.strftime("%d %B %Y") %>
 </p>
 
 <p>
   <strong>Duration:</strong>
-  <%= @article.duration %>
+  <%= @article.duration %> min
 </p>
 
 <p>
@@ -31,9 +31,29 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @article.user %>
+  <strong>Contributer:</strong>
+  <%= @article.user.first_name %> <%= @article.user.last_name %>
 </p>
+
+
+<% if @reading.like  %>
+You have liked this page
+<% else %>
+not liked
+<% end %>
+
+<%= link_to 'Like', like_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Unlike', unlike_article_readings_path(@article), :method=> :post  %> |
+
+<% if @reading.recommended  %>
+You have recommended this page
+<% else %>
+not recommended
+<% end %>
+
+<%= link_to 'recommended', recommend_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Not recommended', unrecommend_article_readings_path(@article), :method=> :post  %> |
+
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
