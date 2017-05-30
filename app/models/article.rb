@@ -4,4 +4,5 @@ class Article < ApplicationRecord
   has_many :comments, through: :readings
 
   validates :title, :content, presence: true
+  mount_uploader :photo, PhotoUploader
 end

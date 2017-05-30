@@ -18,4 +18,6 @@ class User < ApplicationRecord
   # possible improvement: has_many :followers, through: :author_followings
 
   validates :email, uniqueness: true
+  mount_uploader :photo, PhotoUploader
+
 end
