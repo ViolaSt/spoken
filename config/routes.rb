@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       collection do
         post 'like'
         post 'unlike'
+        post 'recommend'
+        post 'unrecommend'
       end
     end
   end
