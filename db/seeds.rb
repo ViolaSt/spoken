@@ -3,6 +3,7 @@ require 'faker'
 User.create(
   first_name: "Jay",
   last_name: "Gatsby",
+  tagline: "Amazing author",
   email: "jay.gatsby@gmail.com",
   password: "123456",
 )
@@ -34,7 +35,7 @@ User.create(
 30.times do
   Article.create(
     title: Faker::Lorem.sentence(rand(2..10)).chomp('.'),
-    description: Faker::Lorem.paragraphs(1),
+    content: Faker::Lorem.paragraphs(1),
     user_id: rand(1..5)
   )
 end
