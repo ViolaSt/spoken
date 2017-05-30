@@ -1,0 +1,49 @@
+.card-wrapper {
+
+}
+.card {
+  height: 270px;
+  background-size: 100% 150px;
+  background-repeat: no-repeat;
+  color: black;
+  position: relative;
+  margin: 0 0 50px 0;
+}
+.card-user {
+  position: absolute;
+  left: 15px;
+  bottom: 30px;
+}
+.user-bio {
+  position: absolute;
+  left: 50px;
+  bottom: 30px;
+
+}
+
+.card-description {
+  position: absolute;
+  top: 155px;
+  left: 0px;
+}
+.card-description h2 {
+  font-size: 16px;
+}
+.card-description p {
+  font-size: 13px;
+  }
+.card-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index:2;
+  background-image: url("http://res.cloudinary.com/dijz3a59v/image/upload/v1496144841/play_kxi07b.png");
+  background-size: 100% 150px;
+  background-repeat: no-repeat;
+  opacity: 0;
+}
+.card-link:hover{
+  opacity: 0.8;
+}

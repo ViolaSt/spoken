@@ -5,37 +5,43 @@ User.create(
   last_name: "Gatsby",
   email: "jay.gatsby@gmail.com",
   password: "123456",
+  remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496151659/gatsby_yksekr.jpg"
 )
 User.create(
   first_name: "Hannibal",
   last_name: "Lecter",
   email: "hannibal.lecter@gmail.com",
   password: "123456",
+  remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496151659/hannibal_w7t18i.jpg"
 )
 User.create(
   first_name: "Scarlett",
   last_name: "O'Hara",
   email: "scarlett.o.hara@gmail.com",
   password: "123456",
+  remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496151659/scarlett_ymwyac.jpg"
 )
 User.create(
   first_name: "Dorian",
   last_name: "Gray",
   email: "dorian.gray@gmail.com",
   password: "123456",
+  remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496151659/dorian_etvtql.jpg"
 )
 User.create(
   first_name: "Big",
   last_name: "Brother",
   email: "big.brother1984@gmail.com",
   password: "123456",
+  remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496151659/big_brother_qepxqt.jpg"
 )
 
 30.times do
   Article.create(
     title: Faker::Lorem.sentence(rand(2..10)).chomp('.'),
     description: Faker::Lorem.paragraphs(1),
-    user_id: rand(1..5)
+    user_id: rand(1..5),
+    remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496142349/sxzmqgim9xx4rxdyfmpl.jpg"
   )
 end
 
