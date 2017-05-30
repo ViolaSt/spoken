@@ -45,6 +45,9 @@ gem 'carrierwave', '~> 0.11.2'
 # authentication
 gem 'devise'
 
+# authorization
+gem 'pundit'
+
 # facebook
 gem 'omniauth-facebook'
 

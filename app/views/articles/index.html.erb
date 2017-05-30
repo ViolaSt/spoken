@@ -1,20 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-
-
 <div class="container">
   <h1>Articles</h1>
   <div class="row">
     <% @articles.each do |article| %>
-      <div class="col-xs-12 col-sm-6 col-md-4">
+    <div class="col-xs-12 col-sm-6 col-md-4">
 
       <div class="card-wrapper">
-      <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
-        <div class="card-description">
-          <h2><%= article.title %></h2>
+        <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
+          <div class="card-description">
+            <h2><%= article.title %></h2>
+          </div>
+          <a class="card-link" href="<%= article_path(article) %>"></a>
         </div>
-        <a class="card-link" href="<%= article_path(article) %>"></a>
-      </div>
         <div class="card-bio">
           <img class="card-user avatar" src="<%= cl_image_path(user_image_path(article.user)) %>">
           <div class="user-bio">
@@ -22,14 +20,29 @@
           </div>
 
         </div>
+
+        <!-- Shows all articles to all users -->
+        <%= link_to "Show", article %>
+
+        <!-- User only sees an edit button if the article is theirs -->
+        <% if policy(article).edit? %>
+        <%= link_to "Edit", edit_article_path(article) %>
+        <% end %>
+
+        <!-- User only sees a destroy button if the article is theirs -->
+        <% if policy(article).destroy? %>
+        <%= link_to "Destroy", article, method: :delete, data: {confirm: "Are you sure?"} %>
+        <% end %>
+
       </div>
-
-
-
-
     </div>
 
 
     <% end %>
   </div>
 </div>
+
+<!-- Shows "New Article" button to all users  -->
+<% if policy(Article).new? %>
+<%= link_to "New Article", new_article_path %>
+<% end %>
