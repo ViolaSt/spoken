@@ -1,28 +1,26 @@
 class ReadingsController < ApplicationController
-
+before_action :set_article, only: [:like, :unlike, :recommend, :unrecommend]
 
   def index
   end
 
   def like
-    @article = Article.find(params[:article_id])
-    # look up the reading based on the article and the user
-    @reading = Reading.find_by(user: current_user, article: @article)
-    # change the like attribute from true to false
     @reading.like = true
+    byebug
     @reading.save
+    redirect_to @article
   end
 
   def unlike
-      @article = Article.find(params[:article_id])
-    # look up the reading based on the article and the user
-    @reading = Reading.find_by(user: current_user, article: @article)
-    # change the like attribute from true to false
     @reading.like = false
     @reading.save
+    redirect_to @article
   end
 
   def recommend
+
+
+
   end
 
   def unrecommend
@@ -36,6 +34,13 @@ class ReadingsController < ApplicationController
 
   def destroy_recommendation
   end
+
+  def set_article
+    @article = Article.find(params[:article_id])
+  end
+
+  def set_reading
+    @reading = Reading.find_by(user: current_user, article: @article)
+  end
 end
 
-# like and recommended don't get assigned a reading

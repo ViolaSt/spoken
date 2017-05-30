@@ -36,7 +36,15 @@
 </p>
 
 
+<% if @reading.like  %>
+You have liked this page
+<% else %>
+not liked
+<% end %>
+
 <%= link_to 'Like', like_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Unlike', unlike_article_readings_path(@article), :method=> :post  %> |
+
 
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
