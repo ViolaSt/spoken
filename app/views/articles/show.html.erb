@@ -20,12 +20,11 @@
   <%= @article.duration %>
 </p>
 
+<iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
+  frameborder="0"></iframe>
 <p>
-  <strong>Audio file:</strong>
-  <%= @article.audio_file %>
-</p>
 
-<p>
   <strong>Category:</strong>
   <%= @article.category %>
 </p>
@@ -37,3 +36,5 @@
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
+
+
