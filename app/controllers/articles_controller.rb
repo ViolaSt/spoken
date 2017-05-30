@@ -26,6 +26,7 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
+    @article.date = DateTime.now
 
     respond_to do |format|
       if @article.save
@@ -70,6 +71,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :description, :date, :duration, :audio_file, :category, :user_id, :photo, "photo_cache")
+      params.require(:article).permit(:title, :description, :duration, :audio_file, :category, :user_id, :photo, "photo_cache")
     end
 end

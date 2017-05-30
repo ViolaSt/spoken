@@ -20,6 +20,7 @@ gem 'autoprefixer-rails'
 gem 'geocoder'
 gem 'coffee-rails'
 gem 'gmaps4rails'
+gem 'yt', '~> 0.29.1'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'
@@ -51,6 +52,7 @@ gem 'omniauth-facebook'
 gem 'letter_opener', group: :development
 
 gem 'faker'
+
 
 group :production do
   gem 'rails_12factor'
