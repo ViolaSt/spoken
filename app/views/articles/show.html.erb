@@ -1,52 +1,60 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
- <div class="row">
-  <div class="col-md-8 offset-md-4">
-  <p> <%= @article.title %> </p>
-  </div>
-  </div>
+
   <div class="row">
+    <div class="col-md-8 offset-md-4">
+      <p> <%= @article.title %> </p>
+    </div>
+  </div>
+
+  <div class="row">
+
     <div class="col-md-1 offset-sm-4">
       <p>Avatar</p>
     </div>
+
     <div class="col-md-3">
      <p>  <%= @article.user.first_name %> <%= @article.user.last_name %>
     </div>
-    <div class="col-md-2">
+
+     <div class="col-md-2">
       <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-primary" %>
     </div>
+
     <div class="row">
       <div class="col-md-12">
-      <p> <%= @article.user.tagline %></p>
+        <p> <%= @article.user.tagline %></p>
       </div>
     </div>
 
-
   </div>
+
 </div>
+
+<p>
+  <strong>Date:</strong>
+  <%= @article.created_at %>
+</p>
 
 <p>
   <strong>Description:</strong>
   <%= @article.description %>
 </p>
 
-
-
 <p>
   <strong>Duration:</strong>
-  <%= @article.duration %> min
+  <%= @article.get_video %> min
 </p>
 
 <iframe id="ytplayer" type="text/html" width="640" height="360"
   src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
   frameborder="0"></iframe>
-<p>
 
+<p>
   <strong>Category:</strong>
   <%= @article.category %>
 </p>
-
 
 <% if @reading.like  %>
 You have liked this page
