@@ -7,12 +7,15 @@ module ApplicationHelper
     end
   end
 
-
-
   def user_image_path(user)
-      cl_image_path user.photo, height: 150, width: 150, crop: "thumb", gravity: "face" || image_path("profile_avatar")
-
+    if user.photo?
+      cl_image_path user.photo, height: 40, width: 40, crop: "thumb", gravity: "face", radius: :max
+    else
+      "http://res.cloudinary.com/dijz3a59v/image/upload/h_40,r_max,w_40/v1496246486/profile_avatar_oma8an.png"
+    end
   end
+
+
 
   def avatar_image_path(user)
     if user.photo?
