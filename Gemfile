@@ -55,6 +55,7 @@ gem 'omniauth-facebook'
 gem 'letter_opener', group: :development
 
 gem 'faker'
+gem 'owlcarousel2'
 
 
 group :production do
