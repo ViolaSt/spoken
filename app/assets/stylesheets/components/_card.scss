@@ -20,6 +20,11 @@
   bottom: 30px;
 
 }
+.article-admin {
+  position: absolute;
+  right: 15px;
+  bottom: 38px;
+}
 
 .card-description {
   position: absolute;
@@ -45,5 +50,5 @@
   opacity: 0;
 }
 .card-link:hover{
-  opacity: 0.8;
+  opacity: 0.4;
 }

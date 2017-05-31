@@ -1,41 +1,58 @@
+<%= render 'shared/banner'%>
+
+
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-  <h1>Articles</h1>
+  <h1   id="popover">Articles</h1>
+
   <div class="row">
     <% @articles.each do |article| %>
-    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="col-xs-12 col-sm-6 col-md-4">
 
-      <div class="card-wrapper">
-        <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
-          <div class="card-description">
-            <h2><%= article.title %></h2>
+        <div class="card-wrapper">
+          <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
+            <div class="card-description">
+              <h2><%= article.title %></h2>
+            </div>
+            <a class="card-link" href="<%= article_path(article) %>"></a>
           </div>
-          <a class="card-link" href="<%= article_path(article) %>"></a>
-        </div>
-        <div class="card-bio">
-          <img class="card-user avatar" src="<%= cl_image_path(user_image_path(article.user)) %>">
-          <div class="user-bio">
-            <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
+          <div class="card-user">
+            <a href="#" data-toggle="popover" title="<%= article.user.first_name %>" data-content="<%= article.user.email %>" data-trigger="hover">
+
+              <img src=" <%= cl_image_path(avatar_image_path(article.user)) %>">
+            </a>
+          </div>
+
+
+
+
+            <div class="user-bio" >
+              <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
+            </div>
+
+
+
+          <div class="article-admin">
+            <!-- User only sees an edit button if the article is theirs -->
+            <% if policy(article).edit? %>
+              <%= link_to edit_article_path(article) do %>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+              <% end %>
+            <% end %>
+            &nbsp;
+            &nbsp;
+            <!-- User only sees a destroy button if the article is theirs -->
+            <% if policy(article).destroy? %>
+              <%= link_to article , method: :delete, data: { confirm: 'Are you sure you want to delete this article? This can not be reversed.' } do %>
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+              <% end %>
+            <% end %>
           </div>
 
         </div>
-
-        <!-- Shows all articles to all users -->
-        <%= link_to "Show", article %>
-
-        <!-- User only sees an edit button if the article is theirs -->
-        <% if policy(article).edit? %>
-        <%= link_to "Edit", edit_article_path(article) %>
-        <% end %>
-
-        <!-- User only sees a destroy button if the article is theirs -->
-        <% if policy(article).destroy? %>
-        <%= link_to "Destroy", article, method: :delete, data: {confirm: "Are you sure?"} %>
-        <% end %>
 
       </div>
-    </div>
 
 
     <% end %>
@@ -45,4 +62,11 @@
 <!-- Shows "New Article" button to all users  -->
 <% if policy(Article).new? %>
 <%= link_to "New Article", new_article_path %>
+<% end %>
+
+<% content_for :after_js do %>
+
+<script>$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
 <% end %>
