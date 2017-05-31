@@ -21,6 +21,7 @@ gem 'geocoder'
 gem 'coffee-rails'
 gem 'gmaps4rails'
 gem 'yt', '~> 0.29.1'
+gem 'booties'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'

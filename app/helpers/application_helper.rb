@@ -9,7 +9,7 @@ module ApplicationHelper
 
   def user_image_path(user)
     if user.photo?
-      cl_image_path user.photo, height: 150, width: 150, crop: "thumb", gravity: "face"
+      cl_image_path user.photo, height: 30, width: 30, crop: "thumb", gravity: "face", radius: :max
     else
       ""
     end

@@ -5,6 +5,11 @@
  * ------------------------------------- */
 
 // Paddings
+a {
+  &:hover {
+  text-decoration: none;
+  }
+}
 .padded {
   padding-top: 5em;
   padding-bottom: 5em;
