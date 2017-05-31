@@ -13,6 +13,7 @@ class User < ApplicationRecord
   def followers
     author_followings.map {|following| following.follower}
   end
+
   def followed_authors
     follower_followings.map {|following| following.author}
   end

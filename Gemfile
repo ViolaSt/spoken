@@ -21,6 +21,9 @@ gem 'geocoder'
 gem 'coffee-rails'
 gem 'gmaps4rails'
 gem 'yt', '~> 0.29.1'
+gem 'activeadmin', github: 'activeadmin/activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'json'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   devise_for :users
-  resources :users, only: [:show, :index ] do
-  end
+
+  resources :users, only: [:show, :index ]
+
   resources :articles do
     resources :comments, only: [:index, :show, :create, :update, :destroy]
     resources :followings, only: [:create, :destroy]
@@ -16,7 +18,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'pages#home'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'articles#index'
 end
