@@ -7,24 +7,28 @@ class ReadingsController < ApplicationController
 
   def like
     @reading.like = true
+    authorize @reading
     @reading.save
     redirect_to @article
   end
 
   def unlike
     @reading.like = false
+    authorize @reading
     @reading.save
     redirect_to @article
   end
 
   def recommend
     @reading.recommended = true
+    authorize @reading
     @reading.save
     redirect_to @article
   end
 
   def unrecommend
     @reading.recommended = false
+    authorize @reading
     @reading.save
     redirect_to @article
   end
