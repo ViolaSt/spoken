@@ -11,4 +11,10 @@ ActiveAdmin.register Article do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+  filter :title
+  filter :date
+  filter :duration
+  filter :audio_file
+  filter :category
+  filter :created_at
 end
