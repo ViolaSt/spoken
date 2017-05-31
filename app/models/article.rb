@@ -22,23 +22,25 @@ class Article < ApplicationRecord
 
     vimeo_formats = [%r(https?://vimeo.com\/(\d+)), %r(https?:\/\/(www\.)?vimeo.com\/(\d+))]
 
-    @url.strip!
+    if @url
+      @url.strip!
 
-    if @url.include? "youtu"
-      youtube_formats.find { |format| @url =~ format } and $1
-      @results = {provider: "youtube", id: $1}
-      @results
-    elsif @url.include? "vimeo"
-      vimeo_formats.find { |format| @url =~ format } and $1
-      @results = {provider: "vimeo", id: $1}
-      @results
-    else
-      return nil # There should probably be some error message here
+      if @url.include? "youtu"
+        youtube_formats.find { |format| @url =~ format } and $1
+        @results = {provider: "youtube", id: $1}
+        @results
+      elsif @url.include? "vimeo"
+        vimeo_formats.find { |format| @url =~ format } and $1
+        @results = {provider: "vimeo", id: $1}
+        @results
+      else
+        return nil # There should probably be some error message here
+      end
     end
   end
 
     # Extract only the video_id ("O8EMo-_6ynI") from the Hash result given by parse_video_url method
   def video_id
-    parse_video_url(audio_file)[:id]
+    # parse_video_url(audio_file)[:id]
   end
 end
