@@ -2,3 +2,29 @@
   border-radius: 50;
   width: 30px;
 }
+
+#player {
+  img {
+    width: 100%
+  }
+  #embedded-player {
+  }
+}
+
+#share {
+  position: fixed;
+  top: 50%;
+  list-style-type: none;
+  font-size: 40px;
+  color: $gray-darker;
+  z-index: 2000;
+  background-color: white;
+  padding: 10px 10px 10px 40px;
+  a {
+  color: $gray-darker;
+  }
+  a:hover {
+    text-decoration: none;
+    color: $gray-darker;
+  }
+}

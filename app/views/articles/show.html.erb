@@ -1,57 +1,81 @@
+<ul id="share">
+  <li>
+    <% if @reading.like %>
+      <%= link_to '', unlike_article_readings_path(@article), :method=> :post, class:'fa fa-heart' %></li>
+    <% else %>
+      <%= link_to '', like_article_readings_path(@article), :method=> :post, class:'fa fa-heart-o' %>
+    <% end %>
+    <%=  @article.readings.where(like: true).length %>
+  </li>
+  <br>
+  <li>
+
+  </li>
+  <li>
+    <% if @reading.recommended %>
+      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-flag-o' %>
+    <% else %>
+      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-flag'  %>
+    <% end %>
+
+
+  </li>
+  <li>
+  </li>
+</ul>
+
 <p id="notice"><%= notice %></p>
 
 <div class="container">
- <div class="row">
-  <div class="col-md-8 offset-md-4">
-    <h3><strong> <%= @article.title %></strong> </h3>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-1 offset-md-4">
-   <%= image_tag "avatar.jpg", class: "img-circle" %>
- </div>
- <div class="col-md-3">
-   <p>  <%= @article.user.first_name %> <%= @article.user.last_name %>
-   </div>
-   <div class="col-md-2">
-    <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-primary" %>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <p> Tagline <%= @article.user.tagline %> </p>
+  <div class="row" id="author">
+    <div class="col-xs-1">
+      <%= image_tag "avatar.jpg", class: "avatar-large" %>
+    </div>
+    <div class="col-xs-11">
+      <ul class="list-inline">
+        <li><h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5></li>
+        <li>  <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-sm btn-success" %></li>
+      </ul>
+      <p><%= @article.user.tagline || 'Tagline' %></p>
+      <p><%= @article.date|| 'Date' %> - <%= @article.duration || 'Duration' %> min  </p>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-4">
-      <p> Date <%= @article.date %></p>
-    </div>
-    <div class="col-md-6">
-      <p> <%= @article.duration %> min  </p>
+  <div class="row" id="title">
+    <h3><strong> <%= @article.title || 'Title' %></strong></h3>
+    <h4><%= @article.description || 'Description' %></h4>
+  </div>
+  <div class="row" id="player">
+    <%= image_tag "image.jpg" %>
+    <div id="embedded-player">
+    <br>
+       <%= image_tag "player.png" %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12 offset-md-4">
-     <p> <%= image_tag "image.jpg" %></p>
-   </div>
- </div>
- <div class="row text-center">
-  <div class="col-md-12 offset-md-4">
-   <p><%= @article.description %></p>
- </div>
+  <div id="carousel" class="owl-carousel">
+    <% @articles.each do |article| %>
+      <div class="card-wrapper">
+        <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
+          <div class="card-description">
+            <h2><%= article.title %></h2>
+          </div>
+          <a class="card-link" href="<%= article_path(article) %>"></a>
+        </div>
+        <div class="card-bio">
+          <img class="card-user avatar" src="<%# cl_image_path(user_image_path(article.user)) %>">
+          <div class="user-bio">
+            <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="row" id="comments">
+    <div class="container"></div>
+  </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-  <ul>
-     <li><a href=""><i class="fa fa-heart-o"></i></a></li>
-     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-     <li><a href=""><i class="fa fa-facebook"></i></a></li>
-     <li><a href=""><i class="fa fa-sticky-note-o"></i></a></li>
-   </ul>
- </div>
-</div>
-</div>
-</div>
-</div>
+
+
+
 
 
 
@@ -61,8 +85,6 @@ You have liked this page
 not liked
 <% end %>
 
-<%= link_to 'Like', like_article_readings_path(@article), :method=> :post  %> |
-<%= link_to 'Unlike', unlike_article_readings_path(@article), :method=> :post  %> |
 
 <% if @reading.recommended  %>
 You have recommended this page
@@ -70,9 +92,12 @@ You have recommended this page
 not recommended
 <% end %>
 
-<%= link_to 'recommended', recommend_article_readings_path(@article), :method=> :post  %> |
-<%= link_to 'Not recommended', unrecommend_article_readings_path(@article), :method=> :post  %> |
-
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
+
+<% content_for(:after_js) do %>
+<script>
+  $(".owl-carousel").owlCarousel();
+</script>
+<% end %>
