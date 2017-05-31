@@ -5,20 +5,16 @@
     <% else %>
       <%= link_to '', like_article_readings_path(@article), :method=> :post, class:'fa fa-heart-o' %>
     <% end %>
-    <%=  @article.readings.where(like: true).length %>
+    <p> <%=  @article.readings.where(like: true).length %></p>
   </li>
-  <br>
   <li>
-
   </li>
   <li>
     <% if @reading.recommended %>
-      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-flag-o' %>
+      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
     <% else %>
-      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-flag'  %>
+      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark'  %>
     <% end %>
-
-
   </li>
   <li>
   </li>
@@ -46,11 +42,18 @@
   </div>
   <div class="row" id="player">
     <%= image_tag "image.jpg" %>
-    <div id="embedded-player">
+  </div>
+  <div class="row">
+  <div id="embedded-player player-center">
+    <div class="col-md-6 col-md-offset-3">
     <br>
-       <%= image_tag "player.png" %>
+      <iframe id="ytplayer" type="text/html" width="640" height="360"
+      src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
+      frameborder="0"></iframe>
     </div>
   </div>
+  </div>
+  <div class="row">
   <div id="carousel" class="owl-carousel">
     <% @articles.each do |article| %>
       <div class="card-wrapper">
@@ -69,35 +72,11 @@
       </div>
     <% end %>
   </div>
+  </div>
   <div class="row" id="comments">
     <div class="container"></div>
   </div>
 </div>
-
-
-<iframe id="ytplayer" type="text/html" width="640" height="360"
-  src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
-  frameborder="0"></iframe>
-<p>
-
-  <strong>Category:</strong>
-  <%= @article.category %>
-</p>
-
-
-<% if @reading.like  %>
-You have liked this page
-<% else %>
-not liked
-<% end %>
-
-
-<% if @reading.recommended  %>
-You have recommended this page
-<% else %>
-not recommended
-<% end %>
-
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
