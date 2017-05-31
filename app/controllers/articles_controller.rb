@@ -31,7 +31,6 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.user = current_user
-    @article.date = DateTime.now
     authorize @article
 
     respond_to do |format|
@@ -79,6 +78,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :description, :duration, :audio_file, :category, :user_id, :photo, "photo_cache")
+      params.require(:article).permit(:title, :description, :audio_file, :category, :user_id, :photo, "photo_cache")
     end
 end

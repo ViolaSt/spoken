@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530175731) do
+ActiveRecord::Schema.define(version: 20170531110610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -48,8 +62,8 @@ ActiveRecord::Schema.define(version: 20170530175731) do
   end
 
   create_table "readings", force: :cascade do |t|
-    t.boolean "like", default: false
-    t.boolean "recommended"
+    t.boolean "like", default: false, null: false
+    t.boolean "recommended", default: false, null: false
     t.text "recommendation_content"
     t.bigint "user_id"
     t.bigint "article_id"
