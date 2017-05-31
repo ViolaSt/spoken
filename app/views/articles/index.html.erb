@@ -1,6 +1,5 @@
 <%= render 'shared/banner'%>
 
-
 <p id="notice"><%= notice %></p>
 
 <div class="container">
@@ -33,11 +32,6 @@
     <% end %>
   </div>
 </div>
-
-<!-- Shows "New Article" button to all users  -->
-<% if policy(Article).new? %>
-<%= link_to "New Article", new_article_path %>
-<% end %>
 
 <% content_for :after_js do %>
 
