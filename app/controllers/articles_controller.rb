@@ -31,7 +31,6 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.user = current_user
-    @article.date = DateTime.now
     authorize @article
 
     respond_to do |format|

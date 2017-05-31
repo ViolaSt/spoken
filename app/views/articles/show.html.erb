@@ -23,6 +23,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
+
   <div class="row" id="author">
     <div class="col-xs-1">
       <%= cl_image_tag(user_image_path(@article.user), class: "avatar-large") %>
@@ -42,8 +43,11 @@
   </div>
   <div class="row" id="player">
     <%= image_tag "image.jpg" %>
+
   </div>
+
   <div class="row">
+
   <div id="embedded-player player-center">
     <div class="col-md-6 col-md-offset-3">
     <br>
@@ -75,8 +79,52 @@
   </div>
   <div class="row" id="comments">
     <div class="container"></div>
+
   </div>
+
 </div>
+
+<p>
+  <strong>Date:</strong>
+  <%= @article.created_at %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @article.description %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @article.get_video %> min
+</p>
+
+<iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
+  frameborder="0"></iframe>
+
+<p>
+  <strong>Category:</strong>
+  <%= @article.category %>
+</p>
+
+<% if @reading.like  %>
+You have liked this page
+<% else %>
+not liked
+<% end %>
+
+<%= link_to 'Like', like_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Unlike', unlike_article_readings_path(@article), :method=> :post  %> |
+
+<% if @reading.recommended  %>
+You have recommended this page
+<% else %>
+not recommended
+<% end %>
+
+<%= link_to 'recommended', recommend_article_readings_path(@article), :method=> :post  %> |
+<%= link_to 'Not recommended', unrecommend_article_readings_path(@article), :method=> :post  %> |
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
