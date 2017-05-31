@@ -5,7 +5,7 @@ class Article < ApplicationRecord
   has_many :readings
   has_many :comments, through: :readings
 
-  validates :title, :description, :audio_file, :category , presence: true
+  validates :title, :description, presence: true
   validate :audio_file,:is_this_a_youtube_link
   before_create :get_video_duration
 

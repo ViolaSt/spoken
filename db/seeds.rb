@@ -47,6 +47,7 @@ User.create(
     description: Faker::Lorem.paragraphs(1),
     user_id: rand(1..5),
     remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496142349/sxzmqgim9xx4rxdyfmpl.jpg",
+    audio_file: "https://www.youtube.com/watch?v=F2AitTPI5U0"
   )
 end
 
