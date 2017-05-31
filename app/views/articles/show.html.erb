@@ -22,87 +22,51 @@
 
 <p id="notice"><%= notice %></p>
 
-<div class="container">
+<!-- Card at top with author information -->
+<div class="container text-center" id="author">
+  <div class="row">
 
-  <div class="row" id="author">
-    <div class="col-xs-1">
+    <!-- User avatar picture -->
+    <div class="col-xs-1 text-center">
       <%= cl_image_tag(user_image_path(@article.user), class: "avatar-large") %>
     </div>
+
+    <!-- User first and last name -->
     <div class="col-xs-11">
       <ul class="list-inline">
         <li><h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5></li>
         <li>  <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-sm btn-success" %></li>
       </ul>
       <p><%= @article.user.tagline || 'Tagline' %></p>
-      <p><%= @article.date|| 'Date' %> - <%= @article.duration || 'Duration' %> min  </p>
     </div>
-  </div>
-  <div class="row" id="title">
-    <h3><strong> <%= @article.title || 'Title' %></strong></h3>
-    <h4><%= @article.description || 'Description' %></h4>
-  </div>
-  <div class="row" id="player">
-    <%= image_tag "image.jpg" %>
 
+  </div>
+</div>
+
+
+  <div class="row text-center" id="title">
+    <h2><strong> <%= @article.title || 'Title' %></strong></h2>
+    <h4><%= @article.created_at.strftime("%d-%m-%Y")|| 'Date' %> - <%= @article.get_video_duration || 'Duration' %></h4>
   </div>
 
   <div class="row">
 
   <div id="embedded-player player-center">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-2">
     <br>
-      <iframe id="ytplayer" type="text/html" width="640" height="360"
+      <iframe id="ytplayer" type="text/html" width="768" height="432"
       src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
       frameborder="0"></iframe>
+      <br>
+      <h4><%= @article.description || 'Description' %></h4>
     </div>
   </div>
   </div>
-  <div class="row">
-  <div id="carousel" class="owl-carousel">
-    <% @articles.each do |article| %>
-      <div class="card-wrapper">
-        <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
-          <div class="card-description">
-            <h2><%= article.title %></h2>
-          </div>
-          <a class="card-link" href="<%= article_path(article) %>"></a>
-        </div>
-        <div class="card-bio">
-          <img class="card-user avatar">
-          <div class="user-bio">
-            <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  </div>
+
   <div class="row" id="comments">
     <div class="container"></div>
 
   </div>
-
-</div>
-
-<p>
-  <strong>Date:</strong>
-  <%= @article.created_at %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @article.description %>
-</p>
-
-<p>
-  <strong>Duration:</strong>
-  <%= @article.get_video_duration %> min
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @article.category %>
-</p>
 
 <% if @reading.like %>
 You have liked this page

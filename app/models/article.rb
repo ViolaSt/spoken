@@ -6,6 +6,7 @@ class Article < ApplicationRecord
   has_many :comments, through: :readings
 
   validates :title, :description, :audio_file, :category , presence: true
+  validate :audio_file,:is_this_a_youtube_link
   before_create :get_video_duration
 
   mount_uploader :photo, PhotoUploader
@@ -53,6 +54,20 @@ class Article < ApplicationRecord
     video_json = open(url).read
     video = JSON.parse(video_json)
     video_duration = video["items"][0]["contentDetails"]["duration"]
+
+    pattern = "PT"
+    pattern += "%HH" if video_duration.include? "H"
+    pattern += "%MM" if video_duration.include? "M"
+    pattern += "%SS"
+    Time.at(DateTime.strptime(video_duration, pattern).seconds_since_midnight.to_i).utc.strftime("%M:%S")
+  end
+
+  private
+
+  def is_this_a_youtube_link
+    if parse_video_url(audio_file).nil?
+      errors.add(:audio_file, "Not a valid YouTube link")
+    end
   end
 end
 
