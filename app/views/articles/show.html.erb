@@ -1,90 +1,104 @@
+<!-- Share Bar on the Side -->
 <ul id="share">
   <li>
     <% if @reading.like %>
-      <%= link_to '', unlike_article_readings_path(@article), :method=> :post, class:'fa fa-heart' %></li>
+      <%= link_to '', unlike_article_readings_path(@article), :method=> :post, class:'fa fa-heart' %>
+  </li>
     <% else %>
-      <%= link_to '', like_article_readings_path(@article), :method=> :post, class:'fa fa-heart-o' %>
+  <li>
+    <%= link_to '', like_article_readings_path(@article), :method=> :post, class:'fa fa-heart-o' %>
+  </li>
     <% end %>
+  <li>
     <p> <%=  @article.readings.where(like: true).length %></p>
   </li>
-  <li>
-  </li>
-  <li>
     <% if @reading.recommended %>
-      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
-    <% else %>
-      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark'  %>
-    <% end %>
-  </li>
   <li>
+      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
   </li>
+    <% else %>
+  <li>
+      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark'  %>
+  </li>
+    <% end %>
 </ul>
 
+
+<div class="container">
 <p id="notice"><%= notice %></p>
 
-<!-- Card at top with author information -->
-<div class="container text-center" id="author">
-  <div class="row">
-
-    <!-- User avatar picture -->
-    <div class="col-xs-1 text-center">
-      <%= cl_image_tag(user_image_path(@article.user), class: "avatar-large") %>
+<!-- Author information -->
+  <div id="author">
+<!-- User avatar picture -->
+    <div class="col-sm-3 col-offset-sm-4">
+      <%= cl_image_tag(user_image_path(@article.user), class: "avatar-large") || 'Image' %>
     </div>
+<!-- User first and last name -->
+    <div class="col-sm-9">
 
-    <!-- User first and last name -->
-    <div class="col-xs-11">
       <ul class="list-inline">
-        <li><h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5></li>
-        <li>  <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-sm btn-success" %></li>
+        <li>
+          <h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5>
+        </li>
+        <li>
+          <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-sm btn-success" %>
+          </li>
       </ul>
       <p><%= @article.user.tagline || 'Tagline' %></p>
+      <p><%= @article.created_at.strftime("%d-%m-%Y")|| 'Date' %> / <%= @article.get_video_duration || 'Duration' %> min / Category: <%= @article.category %></p>
     </div>
 
   </div>
-</div>
 
-
-  <div class="row text-center" id="title">
-    <h2><strong> <%= @article.title || 'Title' %></strong></h2>
-    <h4><%= @article.created_at.strftime("%d-%m-%Y")|| 'Date' %> - <%= @article.get_video_duration || 'Duration' %></h4>
+<!-- Title and Tagline -->
+  <div class="row" id="title">
+  <div class="col-xs-12 text-center">
+        <h3><strong> <%= @article.title || 'Title' %></strong></h3>
+  </div>
   </div>
 
-  <div class="row">
+  <!-- Youtube -->
+  <div class="row" id="player">
+        <iframe id="ytplayer" type="text/html" width="640" height="360"
+        src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
+        frameborder="0"></iframe>
+  </div>
 
-  <div id="embedded-player player-center">
-    <div class="col-md-8 col-md-offset-2">
-    <br>
-      <iframe id="ytplayer" type="text/html" width="768" height="432"
-      src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
-      frameborder="0"></iframe>
-      <br>
+<!-- Description -->
+ <div class="row" id="title">
+   <div class="col-xs-12 text-center">
       <h4><%= @article.description || 'Description' %></h4>
     </div>
   </div>
+
+<!--   Carousel -->
+  <div class="row">
+    <div id="carousel" class="owl-carousel">
+      <% @articles.each do |article| %>
+        <div class="card-wrapper">
+          <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
+            <div class="card-description">
+              <h2><%= article.title %></h2>
+            </div>
+            <a class="card-link" href="<%= article_path(article) %>"></a>
+          </div>
+          <div class="card-bio">
+            <img class="card-user avatar">
+            <div class="user-bio">
+              <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
+
+  <!-- Comments -->
   <div class="row" id="comments">
-    <div class="container"></div>
-
+  </div>
   </div>
 
-<% if @reading.like %>
-You have liked this page
-<% else %>
-not liked
-<% end %>
-
-<%= link_to 'Like', like_article_readings_path(@article), :method=> :post  %> |
-<%= link_to 'Unlike', unlike_article_readings_path(@article), :method=> :post  %> |
-
-<% if @reading.recommended  %>
-You have recommended this page
-<% else %>
-not recommended
-<% end %>
-
-<%= link_to 'recommended', recommend_article_readings_path(@article), :method=> :post  %> |
-<%= link_to 'Not recommended', unrecommend_article_readings_path(@article), :method=> :post  %> |
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
