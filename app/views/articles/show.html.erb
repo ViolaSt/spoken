@@ -68,7 +68,7 @@
           <a class="card-link" href="<%= article_path(article) %>"></a>
         </div>
         <div class="card-bio">
-          <img class="card-user avatar" src="<%# cl_image_path(user_image_path(article.user)) %>">
+          <img class="card-user avatar">
           <div class="user-bio">
             <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
           </div>
@@ -96,19 +96,15 @@
 
 <p>
   <strong>Duration:</strong>
-  <%= @article.get_video %> min
+  <%= @article.get_video_duration %> min
 </p>
-
-<iframe id="ytplayer" type="text/html" width="640" height="360"
-  src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
-  frameborder="0"></iframe>
 
 <p>
   <strong>Category:</strong>
   <%= @article.category %>
 </p>
 
-<% if @reading.like  %>
+<% if @reading.like %>
 You have liked this page
 <% else %>
 not liked

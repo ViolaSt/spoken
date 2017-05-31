@@ -5,8 +5,8 @@ class Article < ApplicationRecord
   has_many :readings
   has_many :comments, through: :readings
 
-  validates :title, :description, :date , :duration, :audio_file, :category , presence: true
-  before_create :get_video
+  validates :title, :description, :audio_file, :category , presence: true
+  before_create :get_video_duration
 
   mount_uploader :photo, PhotoUploader
 
@@ -44,10 +44,10 @@ class Article < ApplicationRecord
 
   # Extract only the video_id ("O8EMo-_6ynI") from the Hash result given by parse_video_url method
   def video_id
-    # parse_video_url(audio_file)[:id]
+    parse_video_url(audio_file)[:id]
   end
 
-  def get_video
+  def get_video_duration
     url = "https://www.googleapis.com/youtube/v3/videos?id=#{video_id}&key=#{ENV['YOUTUBE_API_KEY']}&part=snippet,contentDetails,statistics,status"
 
     video_json = open(url).read
