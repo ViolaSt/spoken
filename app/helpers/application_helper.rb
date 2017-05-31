@@ -7,12 +7,11 @@ module ApplicationHelper
     end
   end
 
+
+
   def user_image_path(user)
-    if user.photo?
-      cl_image_path user.photo, height: 40, width: 40, crop: "thumb", gravity: "face", radius: :max
-    else
-      ""
-    end
+      cl_image_path user.photo, height: 150, width: 150, crop: "thumb", gravity: "face" || image_path("profile_avatar")
+
   end
 
   def avatar_image_path(user)
