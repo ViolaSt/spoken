@@ -21,11 +21,16 @@
 
 /* Navbar logo */
 .navbar-wagon-brand img {
-  width: 50px;
+  width: 70px;
 }
 
 /* Navbar right section (with form, links, button) */
 .navbar-wagon-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-wagon-left {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,14 +59,14 @@
   padding: 0 20px;
   border-radius: 20em;
   line-height: 40px;
-  background-color: #D23333;
+  background-color: $blue;
   color: white;
   font-size: 14px;
-  border: 2px solid #D23333;
+  border: 2px solid $blue;
 }
 .navbar-wagon-button:hover {
   color: white;
-  background: #D23333;
+  background: $blue;
   border-color: #ac2626;
 }
 
@@ -75,7 +80,7 @@
 }
 .navbar-wagon-search-btn {
   line-height: 40px;
-  color: #E6E6E6;
+  color: $blue;
   border: none;
   background: transparent;
   position: absolute;

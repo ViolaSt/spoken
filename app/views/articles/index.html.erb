@@ -1,7 +1,10 @@
+<%= render 'shared/banner'%>
+
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-  <h1>Articles</h1>
+  <h1   id="popover">Articles</h1>
+
   <div class="row">
     <% @articles.each do |article| %>
     <div class="col-xs-12 col-sm-6 col-md-4">
@@ -13,36 +16,26 @@
           </div>
           <a class="card-link" href="<%= article_path(article) %>"></a>
         </div>
-        <div class="card-bio">
-          <img class="card-user avatar" src="<%= cl_image_path(user_image_path(article.user)) %>">
-          <div class="user-bio">
-            <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
-          </div>
+        <div class="card-user">
+          <a href="#" data-toggle="popover" title="<%= article.user.first_name %>" data-content="<%= article.user.email %>" data-trigger="hover">
 
+            <img src=" <%= cl_image_path(avatar_image_path(article.user)) %>">
+          </a>
         </div>
 
-        <!-- Shows all articles to all users -->
-        <%= link_to "Show", article %>
-
-        <!-- User only sees an edit button if the article is theirs -->
-        <% if policy(article).edit? %>
-        <%= link_to "Edit", edit_article_path(article) %>
-        <% end %>
-
-        <!-- User only sees a destroy button if the article is theirs -->
-        <% if policy(article).destroy? %>
-        <%= link_to "Destroy", article, method: :delete, data: {confirm: "Are you sure?"} %>
-        <% end %>
+        <div class="user-bio" >
+          <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
+        </div>
 
       </div>
     </div>
-
-
     <% end %>
   </div>
 </div>
 
-<!-- Shows "New Article" button to all users  -->
-<% if policy(Article).new? %>
-<%= link_to "New Article", new_article_path %>
+<% content_for :after_js do %>
+
+<script>$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
 <% end %>

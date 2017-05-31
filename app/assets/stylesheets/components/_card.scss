@@ -20,6 +20,11 @@
   bottom: 30px;
 
 }
+.article-admin {
+  position: absolute;
+  right: 15px;
+  bottom: 38px;
+}
 
 .card-description {
   position: absolute;
@@ -39,11 +44,12 @@
   right: 0;
   width: 100%;
   z-index:2;
-  background-image: url("http://res.cloudinary.com/dijz3a59v/image/upload/v1496144841/play_kxi07b.png");
-  background-size: 100% 150px;
+  background-image: url("http://res.cloudinary.com/dijz3a59v/image/upload/v1496241666/play_o8kktp.png");
+  background-size: auto 150px;
+  background-position: center top;
   background-repeat: no-repeat;
   opacity: 0;
 }
 .card-link:hover{
-  opacity: 0.8;
+  opacity: 0.2;
 }
