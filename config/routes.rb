@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, only: [:show, :index ] do
-    resources :followings, only: [:create, :destroy]
+    resources :followings, only: [:create] do
+      collection do
+        delete 'unfollow', to: "followings#destroy"
+      end
+    end
   end
 
   resources :articles do
