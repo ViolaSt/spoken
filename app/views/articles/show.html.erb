@@ -16,13 +16,16 @@
 
 <!-- bookmarking logic -->
 
-    <% if @reading.recommended %>
+    <% if @reading.recommended? %>
   <li>
       <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
+      un recommend <%= @reading.id %>
   </li>
     <% else %>
   <li>
       <%= link_to '', recommend_article_readings_path(@article), { method: :post, class:'fa fa-bookmark', remote: true, "data-toggle" =>  "modal", "data-target" => "#modal" } %>
+
+
 
 
 
@@ -142,10 +145,7 @@
 <%= link_to 'Back', articles_path %>
 
 <% content_for(:after_js) do %>
-<script>$('#modal').modal({
-  keyboard: true
-})
-</script>
+
 <!-- <script>
   $(".owl-carousel").owlCarousel();
 </script> -->

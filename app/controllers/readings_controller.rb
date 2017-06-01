@@ -21,17 +21,13 @@ class ReadingsController < ApplicationController
 
   def recommend
     authorize @reading  # pundit authorization
-    @readings = @article.readings
-    @reading.recommended = true
-    @reading.recommendation_content = params[:reading][:recommendation_content]
-    @reading.save
+    @reading.recommend!(params[:reading][:recommendation_content])
     redirect_to @article
   end
 
   def unrecommend
     authorize @reading # pundit authorization
-    @reading.recommended = false
-    @reading.save
+    @reading.unrecommend!
     redirect_to @article
   end
 
