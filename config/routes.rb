@@ -18,5 +18,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'dashboard', to: 'pages#dashboard'
   root to: 'articles#index'
 end
