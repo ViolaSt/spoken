@@ -41,7 +41,7 @@
           <h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5>
         </li>
         <li>
-          <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-blue" %>
+          <%= link_to 'Follow', articles_path(@article), class: "btn btn-blue" %>
           </li>
       </ul>
       <p><%= @article.user.tagline || 'Tagline' %></p>
