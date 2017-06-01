@@ -12,13 +12,51 @@
   <li>
     <p> <%=  @article.readings.where(like: true).length %></p>
   </li>
+
+
+<!-- bookmarking logic -->
+
     <% if @reading.recommended %>
   <li>
       <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
   </li>
     <% else %>
   <li>
-      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark'  %>
+      <%= link_to '', recommend_article_readings_path(@article), { method: :post, class:'fa fa-bookmark', remote: true, "data-toggle" =>  "modal", "data-target" => "#modal" } %>
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Your recommendation</h4>
+                <p>(leave blank if you want)</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= simple_form_for(@reading, :url => recommend_article_readings_path(@article)) do |f| %>
+                <%= f.error_notification %>
+                <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
+                  <%= link_to 'delete bookmark', unrecommend_article_readings_path(@article), :method=> :post, class: "btn" %>
+                  <%=f .submit 'Submit', class: 'btn btn-success btn-lg' %>
+                    <%end%>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+      </div>
+
+
   </li>
     <% end %>
 </ul>
@@ -104,8 +142,12 @@
 <%= link_to 'Back', articles_path %>
 
 <% content_for(:after_js) do %>
-<script>
-  $(".owl-carousel").owlCarousel();
+<script>$('#modal').modal({
+  keyboard: true
+})
 </script>
+<!-- <script>
+  $(".owl-carousel").owlCarousel();
+</script> -->
 <% end %>
 

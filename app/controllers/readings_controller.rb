@@ -21,7 +21,9 @@ class ReadingsController < ApplicationController
 
   def recommend
     authorize @reading  # pundit authorization
+    @readings = @article.readings
     @reading.recommended = true
+    @reading.recommendation_content = params[:reading][:recommendation_content]
     @reading.save
     redirect_to @article
   end
@@ -33,11 +35,6 @@ class ReadingsController < ApplicationController
     redirect_to @article
   end
 
-  def update_recommendation
-  end
-
-  def destroy_recommendation
-  end
 
   # @dan: Added this line to make methods private and prevent injections
   private
