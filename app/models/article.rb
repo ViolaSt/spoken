@@ -3,7 +3,7 @@ require 'open-uri'
 class Article < ApplicationRecord
   belongs_to :user
   has_many :readings
-  has_many :comments, through: :readings
+  has_many :comments, through: :readings, dependent: :destroy
 
   validates :title, :description, presence: true
   validate :audio_file,:is_this_a_youtube_link
