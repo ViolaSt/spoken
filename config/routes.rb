@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         post 'like'
         post 'unlike'
         post 'recommend'
+        patch 'recommend'
         post 'unrecommend'
       end
     end
