@@ -127,42 +127,19 @@
     </div>
   </div>
 
-<!-- Carousel -->
-  <div class="row">
-    <div id="carousel" class="owl-carousel">
-      <% @articles.each do |article| %>
-        <div class="card-wrapper">
-          <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
-            <div class="card-description">
-              <h2><%= article.title %></h2>
-            </div>
-            <a class="card-link" href="<%= article_path(article) %>"></a>
-          </div>
-          <div class="card-bio">
-            <img class="card-user avatar">
-            <div class="user-bio">
-              <h6><%= "#{article.user.first_name} #{article.user.last_name}" %></h6>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
 
   <!-- Comments -->
   <div class="row" id="comments">
+  <h2><%= pluralize @article.comments.size, "Comments" %> </h2>
   </div>
-  </div>
+
+  <% @article.comments.blank? %>
+    Write a comment
+    <%= render 'shared/comment_form', article: @article, comment: @comment %>
+
+</div>
 
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
-
-<% content_for(:after_js) do %>
-
-<!-- <script>
-  $(".owl-carousel").owlCarousel();
-</script> -->
-<% end %>
 
