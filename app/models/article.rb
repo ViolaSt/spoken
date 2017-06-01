@@ -2,7 +2,7 @@ require 'open-uri'
 
 class Article < ApplicationRecord
   belongs_to :user
-  has_many :readings
+  has_many :readings, dependent: :destroy
   has_many :comments, through: :readings, dependent: :destroy
 
   validates :title, :description, presence: true
