@@ -12,13 +12,54 @@
   <li>
     <p> <%=  @article.readings.where(like: true).length %></p>
   </li>
-    <% if @reading.recommended %>
+
+
+<!-- bookmarking logic -->
+
+    <% if @reading.recommended? %>
   <li>
       <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark' %>
+
   </li>
     <% else %>
   <li>
-      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o'  %>
+      <%= link_to '', recommend_article_readings_path(@article), { method: :post, class:'fa fa-bookmark-o', remote: true, "data-toggle" =>  "modal", "data-target" => "#modal" } %>
+
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Your recommendation</h4>
+                <h6>(leave blank if you want)</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= simple_form_for(@reading, :url => recommend_article_readings_path(@article)) do |f| %>
+                <%= f.error_notification %>
+                <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
+
+                  <%=f .submit 'Submit', class: 'btn navbar-wagon-button' %>
+                    <%end%>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+      </div>
+
+
   </li>
     <% end %>
 </ul>
@@ -119,8 +160,9 @@
 <%= link_to 'Back', articles_path %>
 
 <% content_for(:after_js) do %>
-<script>
+
+<!-- <script>
   $(".owl-carousel").owlCarousel();
-</script>
+</script> -->
 <% end %>
 
