@@ -40,9 +40,24 @@
         <li>
           <h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5>
         </li>
+
+        <!-- Checks if articles belongs to current user:
+        1. If true, button shows a link to edit profile
+        2. If false, rhen checks if user follows the author:
+          2.1 If false, buttons shows a link to follow the author
+          2.2 If true, buttons shows a link to unfollow the author -->
         <li>
-          <%= link_to 'Follow', articles_path(@article), class: "btn btn-blue" %>
-          </li>
+          <% if @article.user == current_user %>
+            <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-blue" %>
+          <% else %>
+            <% if current_user.follower_followings.find_by_author_id(@article.user.id) %>
+              <%= link_to 'Unfollow', unfollow_user_followings_path(@article.user), method: :delete, class: "btn btn-blue" %>
+              <% else %>
+            <%= link_to 'Follow', user_followings_path(@article.user), method: :post, class: "btn btn-blue" %>
+          <% end %>
+          <% end %>
+        </li>
+
       </ul>
       <p><%= @article.user.tagline || 'Tagline' %></p>
       <p><%= @article.created_at.strftime("%d-%m-%Y")|| 'Date' %> / <%= @article.get_video_duration || 'Duration' %> min / Category: <%= @article.category %></p>
@@ -57,7 +72,7 @@
   </div>
   </div>
 
-  <!-- Youtube -->
+  <!-- Youtube Player -->
   <div class="row" id="player">
         <iframe id="ytplayer" type="text/html" width="640" height="360"
         src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
@@ -71,7 +86,7 @@
     </div>
   </div>
 
-<!--   Carousel -->
+<!-- Carousel -->
   <div class="row">
     <div id="carousel" class="owl-carousel">
       <% @articles.each do |article| %>
