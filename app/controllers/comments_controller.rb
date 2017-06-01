@@ -8,8 +8,8 @@ class CommentsController < ApplicationController
     @comment.save
     @article = @comment.reading.article
     authorize @comment
-    if @comment.save
       @reading = @comment.reading
+    if @comment.save
      respond_to do |format|
         format.html { redirect_to article_path(@article) }
         format.js  # <-- will render `app/views/reviews/create.js.erb`
