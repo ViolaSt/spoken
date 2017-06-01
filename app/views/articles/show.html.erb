@@ -72,7 +72,7 @@
   <div id="author">
 <!-- User avatar picture -->
     <div class="col-sm-3 col-offset-sm-4">
-      <%= cl_image_tag(user_image_path(@article.user), class: "avatar-large") || 'Image' %>
+      <%= cl_image_tag(user_image_path_large(@article.user), class: "avatar-large") || 'Image' %>
     </div>
 <!-- User first and last name -->
     <div class="col-sm-9">
@@ -82,7 +82,7 @@
           <h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5>
         </li>
         <li>
-          <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-sm btn-success" %>
+          <%= link_to 'Follow', articles_path(@article), class: "btn btn-blue" %>
           </li>
       </ul>
       <p><%= @article.user.tagline || 'Tagline' %></p>

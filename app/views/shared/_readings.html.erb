@@ -9,13 +9,25 @@
           <a class="card-link" href="<%= article_path(reading.article) %>"></a>
         </div>
         <div class="card-user">
-          <a href="#" data-toggle="popover" title="<%= reading.article.user.first_name %>" data-content="<%= reading.article.user.email %>" data-trigger="hover">
+          <a href="#" data-toggle="popover" title="<%= reading.article.user.first_name %> <%= reading.article.user.last_name %>" data-content="<%= reading.article.user.email %>" data-trigger="hover">
 
             <img src=" <%= cl_image_path(avatar_image_path(reading.article.user)) %>">
           </a>
+        </div>
+        <div class="user-bio" >
+          <h6><%= "#{reading.article.user.first_name} #{reading.article.user.last_name}" %></h6>
         </div>
       </div>
     </div>
 
   <% end %>
+
+
+<% content_for :after_js do %>
+
+<script>$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
+<% end %>
+
 
