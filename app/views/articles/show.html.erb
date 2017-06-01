@@ -18,12 +18,12 @@
 
     <% if @reading.recommended? %>
   <li>
-      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
+      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark' %>
 
   </li>
     <% else %>
   <li>
-      <%= link_to '', recommend_article_readings_path(@article), { method: :post, class:'fa fa-bookmark', remote: true, "data-toggle" =>  "modal", "data-target" => "#modal" } %>
+      <%= link_to '', recommend_article_readings_path(@article), { method: :post, class:'fa fa-bookmark-o', remote: true, "data-toggle" =>  "modal", "data-target" => "#modal" } %>
 
 
 
