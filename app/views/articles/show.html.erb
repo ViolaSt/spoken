@@ -36,7 +36,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel">Your recommendation</h4>
-                <p>(leave blank if you want)</p>
+                <h6>(leave blank if you want)</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -45,8 +45,8 @@
                 <%= simple_form_for(@reading, :url => recommend_article_readings_path(@article)) do |f| %>
                 <%= f.error_notification %>
                 <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
-                  <%= link_to 'delete bookmark', unrecommend_article_readings_path(@article), :method=> :post, class: "btn" %>
-                  <%=f .submit 'Submit', class: 'btn btn-success btn-lg' %>
+
+                  <%=f .submit 'Submit', class: 'btn navbar-wagon-button' %>
                     <%end%>
                   </div>
 
