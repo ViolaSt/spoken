@@ -1,8 +1,9 @@
-<%= simple_form_for [@article, @comment] do |f| %>
-<%= f.input :title %>
-<%= f.input :content %>
+<%= simple_form_for([article, comment], remote: true) do |f| %>
+<%= f.error_notification %>
+<%= f.input :title, as: :text %>
+<%= f.input :content, as: :text %>
+<%= f.button :submit %>
 <%= f.hidden_field :reading_id, value: @reading.id %>
-<%= f.submit %>
 <% end %>
 
 

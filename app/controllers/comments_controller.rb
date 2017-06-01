@@ -7,9 +7,20 @@ class CommentsController < ApplicationController
     @comment.reading.article = Article.find(params[:article_id])
     @comment.save
     @article = @comment.reading.article
-    redirect_to @article
     authorize @comment
-  end
+    if @comment.save
+      @reading = @comment.reading
+     respond_to do |format|
+        format.html { redirect_to article_path(@article) }
+        format.js  # <-- will render `app/views/reviews/create.js.erb`
+    end
+    else
+      respond_to do |format|
+        format.html { render 'articles/show' }
+        format.js  # <-- idem
+      end
+     end
+   end
 
   def update
     authorize @comment

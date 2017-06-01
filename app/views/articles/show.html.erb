@@ -1,4 +1,5 @@
 <!-- Share Bar on the Side -->
+
 <ul id="share">
   <li>
     <% if @reading.like %>
@@ -72,14 +73,24 @@
   </div>
 
   <!-- Comments -->
-  <div class="row" id="comments">
-  <h2><%= pluralize @article.comments.size, "Comments" %> </h2>
+  <div class="row" id="comments" class="text-center">
+    <div class="col-xs-6 col-offset-xs-3">
+    <% if @article.comments.any? %>
+        <div class="comment-counter">
+          <h4><%= pluralize @article.comments.size, "Comments" %> </h4>
+        </div>
+      <%= render @article.comments %>
+      <% end %>
+    </div>
   </div>
 
-  <% @article.comments.blank? %>
-    Write a comment
-    <%= render 'shared/comment_form', article: @article, comment: @comment %>
-
+  <!-- Comment-Form -->
+  <div class="row" class="text-center">
+    <div class="col-xs-6 col-offset-xs-3">
+     <% @article.comments.blank? %>
+      <%= render 'shared/comment_form', article: @article, comment: @comment %>
+    </div>
+  </div>
 </div>
 
 
