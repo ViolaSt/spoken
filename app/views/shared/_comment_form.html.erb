@@ -1,0 +1,8 @@
+<%= simple_form_for [@article, @comment] do |f| %>
+<%= f.input :title %>
+<%= f.input :content %>
+<%= f.hidden_field :reading_id, value: @reading.id %>
+<%= f.submit %>
+<% end %>
+
+

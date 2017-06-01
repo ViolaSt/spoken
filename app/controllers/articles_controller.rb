@@ -10,6 +10,7 @@ class ArticlesController < ApplicationController
     @reading = Reading.find_or_create_by(user: current_user, article: @article)
     @articles = Article.all
     # @reading = Reading.find_or_create_by(user: current_user, article: @article)
+    @comment = Comment.new
   end
 
   def new
