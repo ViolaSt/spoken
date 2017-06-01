@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_article, only: [:create, :update, :destroy]
+  before_action :check_if_user_has_name, only: [:create]
 
   def create
     @comment = Comment.new(comment_params)
@@ -38,5 +39,11 @@ class CommentsController < ApplicationController
 
   def set_article
     @article = Article.find(params[:article_id])
+  end
+
+  def check_if_user_has_name
+    if current_user.first_name.nil?
+      redirect_to edit_user_registration_path
+    end
   end
 end

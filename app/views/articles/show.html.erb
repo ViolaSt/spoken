@@ -85,13 +85,15 @@
   </div>
 
   <!-- Comment-Form -->
-  <div class="row">
-    <div class="col-xs-6 col-offset-xs-3">
-     <% @article.comments.blank? %>
-      <%= render 'shared/comment_form', article: @article, comment: @comment %>
+  <% if user_signed_in? %>
+    <div class="row">
+      <div class="col-xs-6 col-offset-xs-3">
+       <% @article.comments.blank? %>
+        <%= render 'shared/comment_form', article: @article, comment: @comment %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
 
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
