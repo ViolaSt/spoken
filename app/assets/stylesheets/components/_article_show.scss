@@ -1,0 +1,15 @@
+.btn-blue {
+  margin-left: 5px;
+  padding: 0 10px;
+  border-radius: 20em;
+  line-height: 20px;
+  background-color: $blue;
+  color: white;
+  font-size: 10px;
+  border: 1px solid $blue;
+}
+.btn-blue:hover {
+  color: white;
+  background: darken($blue, 5%);
+  border-color: $blue;
+}

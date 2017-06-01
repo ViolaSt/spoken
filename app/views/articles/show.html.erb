@@ -12,13 +12,54 @@
   <li>
     <p> <%=  @article.readings.where(like: true).length %></p>
   </li>
-    <% if @reading.recommended %>
+
+
+<!-- bookmarking logic -->
+
+    <% if @reading.recommended? %>
   <li>
-      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
+      <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark' %>
+
   </li>
     <% else %>
   <li>
-      <%= link_to '', recommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark'  %>
+      <%= link_to '', recommend_article_readings_path(@article), { method: :post, class:'fa fa-bookmark-o', remote: true, "data-toggle" =>  "modal", "data-target" => "#modal" } %>
+
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Your recommendation</h4>
+                <h6>(leave blank if you want)</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= simple_form_for(@reading, :url => recommend_article_readings_path(@article)) do |f| %>
+                <%= f.error_notification %>
+                <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
+
+                  <%=f .submit 'Submit', class: 'btn navbar-wagon-button' %>
+                    <%end%>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+      </div>
+
+
   </li>
     <% end %>
 </ul>
@@ -31,7 +72,7 @@
   <div id="author">
 <!-- User avatar picture -->
     <div class="col-sm-3 col-offset-sm-4">
-      <%= cl_image_tag(user_image_path(@article.user), class: "avatar-large") || 'Image' %>
+      <%= cl_image_tag(user_image_path_large(@article.user), class: "avatar-large") || 'Image' %>
     </div>
 <!-- User first and last name -->
     <div class="col-sm-9">
@@ -40,9 +81,24 @@
         <li>
           <h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5>
         </li>
+
+        <!-- Checks if articles belongs to current user:
+        1. If true, button shows a link to edit profile
+        2. If false, rhen checks if user follows the author:
+          2.1 If false, buttons shows a link to follow the author
+          2.2 If true, buttons shows a link to unfollow the author -->
         <li>
-          <%= link_to 'Follow', article_followings_path(@article), class: "btn btn-sm btn-success" %>
-          </li>
+          <% if @article.user == current_user %>
+            <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-blue" %>
+          <% else %>
+            <% if current_user.follower_followings.find_by_author_id(@article.user.id) %>
+              <%= link_to 'Unfollow', unfollow_user_followings_path(@article.user), method: :delete, class: "btn btn-blue" %>
+              <% else %>
+            <%= link_to 'Follow', user_followings_path(@article.user), method: :post, class: "btn btn-blue" %>
+          <% end %>
+          <% end %>
+        </li>
+
       </ul>
       <p><%= @article.user.tagline || 'Tagline' %></p>
       <p><%= @article.created_at.strftime("%d-%m-%Y")|| 'Date' %> / <%= @article.get_video_duration || 'Duration' %> min / Category: <%= @article.category %></p>
@@ -57,7 +113,7 @@
   </div>
   </div>
 
-  <!-- Youtube -->
+  <!-- Youtube Player -->
   <div class="row" id="player">
         <iframe id="ytplayer" type="text/html" width="640" height="360"
         src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
@@ -70,6 +126,7 @@
       <h4><%= @article.description || 'Description' %></h4>
     </div>
   </div>
+
 
   <!-- Comments -->
   <div class="row" id="comments">
@@ -85,5 +142,4 @@
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
-
 
