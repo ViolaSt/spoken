@@ -19,7 +19,7 @@
     <% if @reading.recommended? %>
   <li>
       <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark-o' %>
-      un recommend <%= @reading.id %>
+
   </li>
     <% else %>
   <li>
