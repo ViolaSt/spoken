@@ -1,6 +1,6 @@
-<h3>Your reading list</h3>
-  <% current_user.readings.each do |reading| %>
-    <% if reading.article.user != current_user %>
+<h3>Your followers</h3>
+<% current_user.readings.each do |reading| %>
+  <% if reading.recommended? %>
     <div class="col-xs-12 col-sm-6 col-md-4">
       <div class="card-wrapper">
         <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(reading.article)) %>');">
@@ -10,7 +10,7 @@
           <a class="card-link" href="<%= article_path(reading.article) %>"></a>
         </div>
         <div class="card-user">
-          <a href="#" data-toggle="popover" title="<%= reading.article.user.first_name %> <%= reading.article.user.last_name %>" data-content="<%= reading.article.user.email %>" data-trigger="hover">
+          <a href="#" data-toggle="popover" title="<%= reading.article.user.first_name %>" data-content="<%= reading.article.user.email %>" data-trigger="hover">
 
             <img src=" <%= cl_image_path(avatar_image_path(reading.article.user)) %>">
           </a>
@@ -20,8 +20,9 @@
         </div>
       </div>
     </div>
+
   <% end %>
-  <% end %>
+<% end %>
 
 
 <% content_for :after_js do %>
