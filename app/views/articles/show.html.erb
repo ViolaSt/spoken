@@ -89,13 +89,10 @@
           2.2 If true, buttons shows a link to unfollow the author -->
         <li>
           <% if @article.user == current_user %>
-            <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-blue" %>
+            <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-follow" %>
           <% else %>
-            <% if current_user.follower_followings.find_by_author_id(@article.user.id) %>
-              <%= link_to 'Unfollow', unfollow_user_followings_path(@article.user), method: :delete, class: "btn btn-blue" %>
-              <% else %>
-            <%= link_to 'Follow', user_followings_path(@article.user), method: :post, class: "btn btn-blue" %>
-          <% end %>
+          <%= link_to 'Unfollow', unfollow_user_followings_path(@article.user), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_author_id(@article.user.id)}" %>
+            <%= link_to 'Follow', user_followings_path(@article.user), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_author_id(@article.user.id)}" %>
           <% end %>
         </li>
 
@@ -139,7 +136,21 @@
 
 </div>
 
-
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
 
+<% content_for :after_js do %>
+<script>
+$(document).ready(function() {
+  $('.btn-unfollow').on('click', function() {
+    $('.btn-follow').removeClass('hidden');
+    $('.btn-unfollow').addClass('hidden');
+  });
+  $('.btn-follow').on('click', function() {
+    $('.btn-unfollow').removeClass('hidden');
+    $('.btn-follow').addClass('hidden');
+  });
+});
+
+</script>
+<% end %>
