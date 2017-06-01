@@ -6,6 +6,7 @@ class User < ApplicationRecord
   # author_followings: As an author to get all your followers you check
   # follower_followings:
   has_many :articles
+  has_many :readings
   has_many :author_followings, foreign_key: "author_id", class_name: "Following"
   has_many :follower_followings, foreign_key: "follower_id", class_name: "Following"
 
