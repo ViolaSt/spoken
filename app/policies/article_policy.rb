@@ -26,6 +26,6 @@ class ArticlePolicy < ApplicationPolicy
     # Is the current_user (simply called "user" in pundit) the
     # owner of the articles (called "record"); or is he an admin
     def user_is_owner_or_admin?
-      record.user == user || user.admin
+      record.user == user || current_user.try(:admin?)
     end
 end
