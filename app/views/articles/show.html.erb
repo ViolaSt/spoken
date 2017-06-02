@@ -138,21 +138,34 @@
     <% if @article.comments.any? %>
       <%= render @article.comments %>
     <% end %>
+
+
+
+
+      <%= link_to articles_path do %>
+        <i class="fa fa-backward" aria-hidden="true"></i>
+      <% end %>
+      &nbsp;
+
+      <!-- User only sees an edit button if the article is theirs -->
+      <% if policy(@article).edit? %>
+      <%= link_to edit_article_path(@article) do %>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      <% end %>
+      <% end %>
+      &nbsp;
+
+      <!-- User only sees a destroy button if the article is theirs -->
+      <% if policy(@article).destroy? %>
+      <%= link_to article_path(@article), method: :delete, data: {confirm: "Are you sure?"} do %>
+            <i class="fa fa-eye" aria-hidden="true"></i>
+      <% end %>
+      <% end %>
+
   </div>
 </div>
 
 
-<%= link_to 'Back', articles_path %>
-
-<!-- User only sees an edit button if the article is theirs -->
-<% if policy(@article).edit? %>
-<%= link_to "Edit", edit_article_path(@article) %>
-<% end %>
-
-<!-- User only sees a destroy button if the article is theirs -->
-<% if policy(@article).destroy? %>
-<%= link_to "Destroy", article_path(@article), method: :delete, data: {confirm: "Are you sure?"} %>
-<% end %>
 
 
 <% content_for :after_js do %>
