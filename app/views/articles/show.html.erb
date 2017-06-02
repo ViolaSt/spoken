@@ -66,7 +66,7 @@
 </ul>
 
 
-<div class="container">
+<div class="container" id="main-container">
 
   <!-- Author information -->
   <div id="author">
@@ -118,35 +118,30 @@
     </div>
 
     <!-- Description -->
-    <div class="row" id="title">
+    <div class="row padded" id="description">
      <div class="col-xs-12 text-center">
       <h4><%= @article.description || 'Description' %></h4>
-    </div>
-  </div>
-
-
-  <!-- Comments -->
-  <div class="row" id="comments">
-    <div class="col-xs-6 col-offset-xs-3">
-    <% if @article.comments.any? %>
-        <div id="comment-counter">
-          <h4><%= pluralize @article.comments.size, "Comments" %> </h4>
-        </div>
-      <%= render @article.comments %>
-      <% end %>
     </div>
   </div>
 
   <!-- Comment-Form -->
   <% if user_signed_in? %>
     <div class="row">
-      <div class="col-xs-6 col-offset-xs-3">
        <% @article.comments.blank? %>
         <%= render 'shared/comment_form', article: @article, comment: @comment %>
       </div>
-    </div>
+  <% end %>
+
+  <!-- Comments -->
+  <div class="row padded-sm" id="comments">
+        <div id="comment-counter">
+          <h4 id="padding-comments"><%= pluralize @article.comments.size, "Comments" %> </h4>
+        </div>
+    <% if @article.comments.any? %>
+      <%= render @article.comments %>
+      <% end %>
   </div>
-<% end %>
+</div>
 
 
 <%= link_to 'Back', articles_path %>
