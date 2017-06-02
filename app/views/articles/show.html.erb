@@ -3,6 +3,9 @@
 <ul id="share">
   <li>
     <% if @reading.like %>
+    <%= link_to "" do %>
+      <i class="fa fa-bug" aria-hidden="true"></i>
+    <% end %>
     <%= link_to '', unlike_article_readings_path(@article), :method=> :post, class:'fa fa-heart' %>
   </li>
   <% else %>
@@ -46,21 +49,12 @@
             <%= simple_form_for(@reading, :url => recommend_article_readings_path(@article)) do |f| %>
             <%= f.error_notification %>
             <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
-
             <%=f .submit 'Submit', class: 'btn navbar-wagon-button' %>
             <%end%>
           </div>
-
         </div>
       </div>
     </div>
-
-
-
-
-  </div>
-
-
 </li>
 <% end %>
 </ul>
@@ -134,12 +128,14 @@
 
   <!-- Comments -->
   <div class="row padded-sm" id="comments">
-        <div id="comment-counter">
-          <h4 id="padding-comments"><%= pluralize @article.comments.size, "Comments" %> </h4>
-        </div>
+    <div id="comment-counter">
+      <h4 id="padding-comments">
+        <%= pluralize @article.comments.size, "Comments" %>
+      </h4>
+    </div>
     <% if @article.comments.any? %>
       <%= render @article.comments %>
-      <% end %>
+    <% end %>
   </div>
 </div>
 
