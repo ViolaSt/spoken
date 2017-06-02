@@ -1,7 +1,7 @@
 <%= simple_form_for([article, comment], remote: true) do |f| %>
 <%= f.error_notification %>
 <%= f.input :title, as: :text, placeholder: 'Title', label: false %>
-<%= f.input :content, as: :text, placeholder: 'Comment', label: false %>
+<%= f.input :content, as: :text, placeholder: 'Comment (min. 20 characters)', label: false %>
 <%= f.button :submit %>
 <%= f.hidden_field :reading_id, value: @reading.id %>
 <% end %>
