@@ -4,7 +4,10 @@
 
 
 <div class="tabs">
-  <a class="tab active" data-target="#bookmarks">
+  <a class="tab active" data-target="#profile">
+    <h3>Your Profile</h3>
+  </a>
+  <a class="tab" data-target="#bookmarks">
     <h3>Bookmarked</h3>
   </a>
   <a class="tab" data-target="#followings">
@@ -16,7 +19,10 @@
 </div>
 
 <div class="container text-center">
-  <div class="tab-content" id="bookmarks">
+  <div class="tab-content" id="profile">
+    <%= render 'shared/profile' %>
+  </div>
+  <div class="tab-content hidden" id="bookmarks">
     <%= render 'shared/recommendations' %>
   </div>
   <div class="tab-content hidden" id="followings">
