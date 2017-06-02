@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_article, only: [:create, :update, :destroy]
-  before_action :check_if_user_has_name, only: [:create]
+  # before_action :check_if_user_has_name, only: [:create]
 
   def create
     @comment = Comment.new(comment_params)
@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     @comment.save
     @article = @comment.reading.article
     authorize @comment
-      @reading = @comment.reading
+    @reading = @comment.reading
     if @comment.save
      respond_to do |format|
         format.html { redirect_to article_path(@article) }
@@ -41,9 +41,9 @@ class CommentsController < ApplicationController
     @article = Article.find(params[:article_id])
   end
 
-  def check_if_user_has_name
-    if current_user.first_name.nil?
-      redirect_to edit_user_registration_path
-    end
-  end
+  # def check_if_user_has_name
+  #   if current_user.first_name.nil?
+  #     redirect_to edit_user_registration_path
+  #   end
+  # end
 end

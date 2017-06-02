@@ -76,7 +76,7 @@
   <div class="row" id="comments">
     <div class="col-xs-6 col-offset-xs-3">
     <% if @article.comments.any? %>
-        <div class="comment-counter">
+        <div id="comment-counter">
           <h4><%= pluralize @article.comments.size, "Comments" %> </h4>
         </div>
       <%= render @article.comments %>
