@@ -1,5 +1,6 @@
 <h3>Your reading list</h3>
   <% current_user.readings.each do |reading| %>
+    <% if current_user != reading.article.user %>
     <div class="col-xs-12 col-sm-6 col-md-4">
       <div class="card-wrapper">
         <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(reading.article)) %>');">
@@ -21,10 +22,10 @@
     </div>
 
   <% end %>
+  <% end %>
 
 
 <% content_for :after_js do %>
-
 <script>$(document).ready(function(){
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
 });</script>

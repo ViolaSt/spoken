@@ -1,0 +1,53 @@
+<h3>Users you follow</h3>
+<br>
+<br>
+  <div class="container">
+  <table>
+  <% current_user.follower_followings.each do |following| %>
+    <% if current_user != following.author %>
+    <tr>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+
+
+          <a href="#" data-toggle="popover" title="<%= following.author.first_name %> <%= following.author.last_name %>" data-content="<%= following.author.email %>" data-trigger="hover">
+
+            <img src=" <%= cl_image_path(avatar_image_path(following.author)) %>">
+          </a>
+          <h6><%= "#{following.author.first_name} #{following.author.last_name}" %></h6>
+        </tr>
+  <% end %>
+  <% end %>
+</table>
+  </div>
+
+
+<h3>Your Followers</h3>
+<br>
+<br>
+  <div class="container">
+  <table>
+  <% current_user.author_followings.each do |following| %>
+    <% if current_user != following.follower %>
+    <tr>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+
+
+          <a href="#" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
+
+            <img src=" <%= cl_image_path(avatar_image_path(following.follower)) %>">
+          </a>
+          <h6><%= "#{following.follower.first_name} #{following.follower.last_name}" %></h6>
+        </tr>
+  <% end %>
+  <% end %>
+</table>
+  </div>
+
+
+<% content_for :after_js do %>
+<script>$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
+<% end %>
+
+
