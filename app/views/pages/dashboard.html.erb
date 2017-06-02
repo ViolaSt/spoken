@@ -2,42 +2,56 @@
   <h2>Welcome back, <%= current_user.first_name %>!</h2>
 </div>
 
-<div class="container">
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="text-center">
-        <%= render 'shared/my_articles' %>
-      </div>
-    </div>
+<div class="tabs">
+  <a class="tab active" data-target="#profile">
+    <h3>Your Profile</h3>
+  </a>
+  <a class="tab" data-target="#bookmarks">
+    <h3>Bookmarked</h3>
+  </a>
+  <a class="tab" data-target="#followings">
+    <h3>Followers</h3>
+  </a>
+  <a class="tab" data-target="#readings">
+    <h3>Recently read</h3>
+  </a>
+</div>
+
+<div class="container text-center">
+  <div class="tab-content" id="profile">
+    <%= render 'shared/profile' %>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="text-center">
-        <%= render 'shared/followings' %>
-      </div>
-    </div>
+  <div class="tab-content hidden" id="bookmarks">
+    <%= render 'shared/recommendations' %>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="text-center">
-        <%= render 'shared/recommendations' %>
-      </div>
-    </div>
-  </div><div class="row">
-    <div class="col-md-12">
-      <div class="text-center">
-      </div>
-    </div>
+  <div class="tab-content hidden" id="followings">
+    <%= render 'shared/followings' %>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="text-center">
-        <%= render 'shared/readings' %>
-      </div>
-    </div>
+  <div class="tab-content hidden" id="readings">
+    <%= render 'shared/readings' %>
   </div>
 </div>
 
 
+<% content_for :after_js do %>
+
+
+<script>
+
+  $(function(){
+
+  $(".tab").on("click", function(e){
+    // Change active tab
+    $(".tab").removeClass('active');
+    $(this).addClass('active');
+    // Hide all tab-content (use class="hidden")
+    $(".tab-content").addClass('hidden');
+    // Show target tab-content (use class="hidden")
+    $($(this).data('target')).removeClass('hidden');
+  });
+
+});</script>
+
+<% end %>
 
