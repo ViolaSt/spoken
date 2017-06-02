@@ -66,8 +66,8 @@
 }
 .navbar-wagon-button:hover {
   color: white;
-  background: $blue;
-  border-color: #ac2626;
+  background: darken($blue, 5%);
+  border-color: $blue;
 }
 
 /* Navbar search form */

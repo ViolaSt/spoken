@@ -9,7 +9,6 @@ class ArticlesController < ApplicationController
   def show
     @reading = Reading.find_or_create_by(user: current_user, article: @article)
     @articles = Article.all
-    # @reading = Reading.find_or_create_by(user: current_user, article: @article)
     @comment = Comment.new
   end
 
@@ -39,7 +38,7 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+        format.html { redirect_to @article}
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit }

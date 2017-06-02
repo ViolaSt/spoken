@@ -15,7 +15,21 @@
             <img src=" <%= cl_image_path(avatar_image_path(reading.article.user)) %>">
           </a>
         </div>
+        <div class="user-bio" >
+          <h6><%= "#{reading.article.user.first_name} #{reading.article.user.last_name}" %></h6>
+        </div>
       </div>
     </div>
+
   <% end %>
 <% end %>
+
+
+<% content_for :after_js do %>
+
+<script>$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
+<% end %>
+
+
