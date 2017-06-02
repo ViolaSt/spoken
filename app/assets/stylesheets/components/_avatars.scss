@@ -1,21 +1,60 @@
 .avatar {
   width: 30px;
+  height: 30px;
   border-radius: 50%;
 }
 .avatar-large {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 .avatar-bordered {
   width: 30px;
+  height: 30px;
   border-radius: 50%;
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   border: white 1px solid;
 }
 .avatar-square {
   width: 30px;
+  height: 30px;
   border-radius: 0px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   border: white 1px solid;
+}
+
+.avatar-link {
+  text-decoration: none;
+  color: #000;
+}
+
+.avatar-link:hover {
+  text-decoration: none;
+  color: #000;
+  opacity: 0.8;
+}
+
+.avatar-card {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding-bottom: 5px;
+  .user-and-date {
+    a {
+      color: #333333;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    p {
+      margin-bottom: 0;
+    }
+    .user-name {
+      font-size: 13px;
+    }
+    .date-info {
+      font-weight: lighter;
+      font-size: 12px;
+    }
+  }
 }

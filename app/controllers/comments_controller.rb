@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_article, only: [:create, :update, :destroy]
+  # before_action :check_if_user_has_name, only: [:create]
 
   def create
     @comment = Comment.new(comment_params)
@@ -7,9 +8,20 @@ class CommentsController < ApplicationController
     @comment.reading.article = Article.find(params[:article_id])
     @comment.save
     @article = @comment.reading.article
-    redirect_to @article
     authorize @comment
-  end
+    @reading = @comment.reading
+    if @comment.save
+     respond_to do |format|
+        format.html { redirect_to article_path(@article) }
+        format.js  # <-- will render `app/views/reviews/create.js.erb`
+    end
+    else
+      respond_to do |format|
+        format.html { render 'articles/show' }
+        format.js  # <-- idem
+      end
+     end
+   end
 
   def update
     authorize @comment
@@ -28,4 +40,10 @@ class CommentsController < ApplicationController
   def set_article
     @article = Article.find(params[:article_id])
   end
+
+  # def check_if_user_has_name
+  #   if current_user.first_name.nil?
+  #     redirect_to edit_user_registration_path
+  #   end
+  # end
 end

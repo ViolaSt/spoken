@@ -2,7 +2,8 @@
 <br>
 <br>
   <% current_user.readings.each do |reading| %>
-    <% if current_user != reading.article.user %>
+
+    <% if reading.article.user != current_user %>
     <div class="col-xs-12 col-sm-6 col-md-4">
       <div class="card-wrapper">
         <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(reading.article)) %>');">
@@ -22,7 +23,7 @@
         </div>
       </div>
     </div>
-
+  <% end %>
   <% end %>
   <% end %>
 

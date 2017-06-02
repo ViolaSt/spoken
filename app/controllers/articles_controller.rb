@@ -9,7 +9,6 @@ class ArticlesController < ApplicationController
   def show
     @reading = Reading.find_or_create_by(user: current_user, article: @article)
     @articles = Article.all
-    # @reading = Reading.find_or_create_by(user: current_user, article: @article)
     @comment = Comment.new
   end
 
@@ -25,7 +24,6 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.user = current_user
     authorize @article
-
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }

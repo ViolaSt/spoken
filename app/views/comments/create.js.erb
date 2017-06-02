@@ -1,0 +1,17 @@
+<% if @comment.errors.any? %>
+  // Render new comment form with errors
+  $('#new_comment').html("<%= j render 'shared/comment_form', article: @article, comment: @comment %>");
+<% else %>
+  // Create a paragraph for the new comment. But hide it.
+  var new_comment = $("<%= j render 'comments/comment', comment: @comment %>").hide();
+  // Add it to the DOM, at the end of the existing comments. It's still hidden.
+  $('#comments').prepend(new_comment);
+  // Show the new comment with an animation!
+  new_comment.slideDown();
+  // Reset the form
+  $('#new_comment').html("<%= j render 'shared/comment_form' , article: @article, comment: Comment.new %>");
+  var new_counter = $("<h4><%= j @article.comments.size.to_s %>&nbsp;Comments</h4>");
+  $('#comment-counter').html(new_counter);
+<% end %>
+
+

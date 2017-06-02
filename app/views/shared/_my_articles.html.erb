@@ -1,0 +1,25 @@
+<h3>Your articles</h3>
+  <% current_user.articles.each do |article| %>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="card-wrapper">
+        <div class="card" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
+          <div class="card-description">
+            <h2><%= article.title %></h2>
+          </div>
+          <a class="card-link" href="<%= article_path(article) %>"></a>
+        </div>
+
+
+      </div>
+    </div>
+  <% end %>
+
+
+<% content_for :after_js do %>
+
+<script>$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
+<% end %>
+
+
