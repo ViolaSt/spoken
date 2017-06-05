@@ -1,0 +1,53 @@
+    <% @articles.each do |article| %>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <div class="one-card">
+
+        <!-- Top row with avatar, author name and article info -->
+        <div class="col-xs-12">
+
+          <!-- Avatar image -->
+          <div class="col-xs-3">
+            <div class="avatar-large">
+              <a href="#" data-toggle="popover" title="<%= article.user.first_name %>" data-content="<%= article.user.email %>" data-trigger="hover">
+                <img class= "card-user-avatar avatar-large" src=" <%= cl_image_path(avatar_image_path(article.user)) %>">
+              </a>
+            </div>
+          </div>
+
+          <!-- Author name, how many days ago it was posted and duration -->
+          <div class="col-xs-9">
+            <div class="article-info">
+              <h5><%= "#{article.user.first_name} #{article.user.last_name}" %></h5>
+              <p><small><%= article.created_at.strftime("%d-%m-%Y") %> - <%= article.get_video_duration %> min</small></p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Article Photo -->
+        <div class="col-xs-12">
+          <div class="card-wrapper">
+            <div class="article-photo" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
+
+              <a class="article-link" href="<%= article_path(article) %>"></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article title and description -->
+        <div class="col-xs-12 article-title">
+          <h3><%= article.title %></h3>
+          <p><%= article.description[0..150] %></p>
+        </div>
+
+        <!-- Article category and number of likes -->
+        <div class="col-xs-12">
+          <ul class="list-inline article-category">
+            <li><p>in <%= article.category %></p></li>
+            <li class="float-right"><p class="fa fa-heart"> <%= article.readings.where(like: true).length %></p></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+    <% end %>
