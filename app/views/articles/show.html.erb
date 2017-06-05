@@ -35,11 +35,16 @@
     <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o #{'hidden' if @reading.recommend!(@article) }" %>
   </li>
 
-<!--   Twitter Share Button -->
-  <li>
-  <br>
-    <%= twitter_button %>
+<!-- Facebook Share Button
+ -->  <li id="social-media-button-padding">
+   <%= social_share_button_tag(@article.title, :allow_sites => %w(facebook)) %>
+
   </li>
+<!--   Twitter Share Button -->
+  <li d="social-media-button-padding">
+    <%= social_share_button_tag(@article.title, :allow_sites => %w(twitter)) %>
+  </li>
+
 </ul>
 
 
