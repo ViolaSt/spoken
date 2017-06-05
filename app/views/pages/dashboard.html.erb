@@ -2,17 +2,6 @@
   Your Profile
 <% end %>
 
-
-<div class="text-center">
-  <% if current_user.first_name %>
-    <h2>Welcome back, <%= current_user.first_name %>!</h2>
-  <% else %>
-    <h2>Welcome back!</h2>
-  <% end %>
-
-</div>
-
-
 <div class="tabs">
   <a class="tab active" data-target="#profile">
     <h3>Your Profile</h3>
@@ -27,6 +16,9 @@
     <h3>Recently read</h3>
   </a>
 </div>
+
+
+
 
 <div class="container text-center">
   <div class="tab-content" id="profile">
