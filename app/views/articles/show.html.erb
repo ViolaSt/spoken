@@ -129,19 +129,23 @@
   <% end %>
 
   <!-- Comments -->
-  <div class="row padded-sm" id="comments">
+  <div class="comment-title">
     <div id="comment-counter">
-      <h4 id="padding-comments">
-        <%= pluralize @article.comments.size, "Comments" %>
-      </h4>
+    <h4 id="padding-comments">
+      <%= pluralize @article.comments.size, "Comment" %>
+    </h4>
     </div>
+  </div>
+  <div class="row padded-sm" id="comments">
     <% if @article.comments.any? %>
-      <%= render @article.comments %>
+      <%= render @article.comments, article: @article %>
     <% end %>
   </div>
 </div>
 
 
+
+<!-- Back-Link -->
 <%= link_to 'Back', articles_path %>
 
 <!-- User only sees an edit button if the article is theirs -->

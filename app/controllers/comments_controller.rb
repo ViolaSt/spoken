@@ -28,7 +28,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    set_comment
     authorize @comment
+    @comment.destroy
   end
 
   private
@@ -39,6 +41,10 @@ class CommentsController < ApplicationController
 
   def set_article
     @article = Article.find(params[:article_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 
   # def check_if_user_has_name
