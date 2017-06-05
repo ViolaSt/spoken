@@ -21,26 +21,75 @@
   margin-top: 50px;
 }
 
-
-
 #share {
+  color: black;
   position: fixed;
   top: 40%;
   list-style-type: none;
   font-size: 40px;
-  color: $gray-darker;
   z-index: 2000;
   padding: 10px 10px 10px 200px;
   font-size: 20px;
   text-align: center;
   p {
-    font-size: 10px;
+  font-size: 10px;
   }
   a {
-  color: $gray-darker;
+  color: lighten($blue, 5%);
   }
-  a:hover {
-    text-decoration: none;
-    color: $gray-darker;
+  &:link a {
+  text-decoration: none;
   }
+  .fa-wrench:link{
+  text-decoration: underline;
+}
+}
+
+
+.btn-follow {
+  margin-left: 5px;
+  padding: 0 10px;
+  border-radius: 20em;
+  line-height: 20px;
+  background-color: $blue;
+  color: white;
+  font-size: 10px;
+  border: 1px solid $blue;
+  width: 75px;
+}
+.btn-unfollow {
+  margin-left: 5px;
+  padding: 0 10px;
+  border-radius: 20em;
+  line-height: 20px;
+  background-color: white;
+  color: $blue;
+  font-size: 10px;
+  border: 1px solid $blue;
+  width: 75px;
+}
+.btn-blue:hover {
+  color: white;
+  background: darken($blue, 5%);
+  border-color: $blue;
+}
+
+#main-container {
+  max-width: 640px;
+}
+
+#comment-title {
+  height: 30px;
+}
+
+#comment-content {
+  height: 50px;
+}
+
+#padding-comments {
+  padding-bottom: 10px;
+}
+
+.padded-right {
+  padding-right: 10px;
 }

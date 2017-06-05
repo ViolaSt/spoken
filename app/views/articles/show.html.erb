@@ -1,5 +1,6 @@
 <!-- Left side share Bar with like and recommend button -->
 <ul id="share">
+  
 
   <!-- Like/Unlike button logic -->
 
@@ -12,7 +13,6 @@
     <%= link_to '', like_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart-o #{'hidden' if @reading.like }" %>
   </li>
 
-  <!-- Shows a counter below the like button with the total number of likes -->
   <li>
     <p id="like-count"> <%=  @article.readings.where(like: true).length %></p>
   </li>
@@ -28,11 +28,10 @@
     <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
     <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o #{'hidden' if @reading.recommend!(@article) }" %>
   </li>
-
 </ul>
 
 
-<div class="container">
+<div class="container" id="main-container">
 
   <!-- Author information -->
   <div id="author">
@@ -91,52 +90,57 @@
     frameborder="0"></iframe>
   </div>
 
-  <!-- Description -->
-  <div class="row" id="title">
-    <div class="col-xs-12 text-center">
+    <!-- Description -->
+    <div class="row padded" id="description">
+     <div class="col-xs-12 text-center">
       <h4><%= @article.description || 'Description' %></h4>
     </div>
   </div>
 
 
-  <!-- Comments -->
-  <div class="row" id="comments">
-    <div class="col-xs-6 col-offset-xs-3">
-      <% if @article.comments.any? %>
-      <div id="comment-counter">
-        <h4><%= pluralize @article.comments.size, "Comments" %> </h4>
-      </div>
-      <%= render @article.comments %>
-      <% end %>
-    </div>
-  </div>
-
   <!-- Comment-Form -->
   <% if user_signed_in? %>
-  <div class="row">
-    <div class="col-xs-6 col-offset-xs-3">
-      <% @article.comments.blank? %>
-      <%= render 'shared/comment_form', article: @article, comment: @comment %>
+    <div class="row">
+       <% @article.comments.blank? %>
+        <%= render 'shared/comment_form', article: @article, comment: @comment %>
+      </div>
+  <% end %>
+
+  <!-- Comments -->
+  <div class="row padded-sm" id="comments">
+    <div id="comment-counter">
+      <h4 id="padding-comments">
+        <%= pluralize @article.comments.size, "Comments" %>
+      </h4>
     </div>
+    <% if @article.comments.any? %>
+      <%= render @article.comments %>
+    <% end %>
+    
+      <%= link_to articles_path do %>
+        <i class="fa fa-backward" aria-hidden="true"></i>
+      <% end %>
+      &nbsp;
+
+      <!-- User only sees an edit button if the article is theirs -->
+      <% if policy(@article).edit? %>
+      <%= link_to edit_article_path(@article) do %>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      <% end %>
+      <% end %>
+      &nbsp;
+
+      <!-- User only sees a destroy button if the article is theirs -->
+      <% if policy(@article).destroy? %>
+      <%= link_to article_path(@article), method: :delete, data: {confirm: "Are you sure?"} do %>
+            <i class="fa fa-eye" aria-hidden="true"></i>
+      <% end %>
+      <% end %>
+
   </div>
 </div>
-<% end %>
 
-
-<!-- All users can navigate back -->
-<%= link_to 'Back', articles_path %>
-
-<!-- User only sees an edit button if the article is theirs -->
-<% if policy(@article).edit? %>
-<%= link_to "Edit", edit_article_path(@article) %>
-<% end %>
-
-<!-- User only sees a destroy button if the article is theirs -->
-<% if policy(@article).destroy? %>
-<%= link_to "Destroy", article_path(@article), method: :delete, data: {confirm: "Are you sure?"} %>
-<% end %>
-
-
+  
 <!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
 <% content_for :after_js do %>
 <script>

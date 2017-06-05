@@ -1,5 +1,8 @@
 <h3>Your reading list</h3>
+<br>
+<br>
   <% current_user.readings.each do |reading| %>
+
     <% if reading.article.user != current_user %>
     <div class="col-xs-12 col-sm-6 col-md-4">
       <div class="card-wrapper">
@@ -25,7 +28,6 @@
 
 
 <% content_for :after_js do %>
-
 <script>$(document).ready(function(){
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
 });</script>

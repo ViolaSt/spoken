@@ -29,7 +29,7 @@ module ApplicationHelper
     if user.photo?
       cl_image_path user.photo, height: 30, width: 30, crop: "thumb", gravity: "face", radius: :max
     else
-      ""
+      "http://res.cloudinary.com/dijz3a59v/image/upload/h_40,r_max,w_40/v1496246486/profile_avatar_oma8an.png"
     end
   end
 
