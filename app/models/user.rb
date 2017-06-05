@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   # author_followings: As an author to get all your followers you check
   # follower_followings:
-  has_many :articles
+  has_many :articles, dependent: :destroy
   has_many :readings, dependent: :destroy
 
   # I am the author and many people are following me
