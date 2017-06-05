@@ -1,3 +1,7 @@
+<% content_for(:title_tag) do %>
+  List of Articles
+<% end %>
+
 <%= render 'shared/banner'%>
 
 
@@ -34,6 +38,7 @@
                <i class="fa fa-pencil" aria-hidden="true"></i>
                <% end %>
              <% end %>
+             &nbsp;
 
              <!-- User only sees a destroy button if the article is theirs -->
              <% if policy(article).destroy? %>
