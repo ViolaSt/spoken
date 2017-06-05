@@ -6,7 +6,7 @@
 
 <!-- Left side share Bar with like and recommend button -->
 <ul id="share">
-  
+
 
   <!-- Like/Unlike button logic -->
 
@@ -33,6 +33,12 @@
 
     <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
     <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o #{'hidden' if @reading.recommend!(@article) }" %>
+  </li>
+
+<!--   Twitter Share Button -->
+  <li>
+  <br>
+    <%= twitter_button %>
   </li>
 </ul>
 
@@ -122,7 +128,7 @@
     <% if @article.comments.any? %>
       <%= render @article.comments %>
     <% end %>
-    
+
       <%= link_to articles_path do %>
         <i class="fa fa-backward" aria-hidden="true"></i>
       <% end %>
@@ -146,7 +152,7 @@
   </div>
 </div>
 
-  
+
 <!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
 <% content_for :after_js do %>
 <script>
