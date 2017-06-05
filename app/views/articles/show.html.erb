@@ -131,28 +131,31 @@
 
 
   <!-- Comment-Form -->
-<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div id="comment-counter">
     <h5>
       <%= pluralize @article.comments.size, "Comment" %>
     </h5>
   </div>
-  <% if user_signed_in? %>
-    <div class="row">
-       <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+</div>
+<% if user_signed_in? %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
-       <% @article.comments.blank? %>
+      <% @article.comments.blank? %>
         <%= render 'shared/comment_form', article: @article, comment: @comment %>
-      </div>
-      </div>
-  <% end %>
+    </div>
+  </div>
+<% end %>
 
   <!-- Comments -->
   <div class="row padded-sm" id="comments">
-
-    <% if @article.comments.any? %>
-      <%= render @article.comments, article: @article %>
-    <% end %>
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <% if @article.comments.any? %>
+        <%= render @article.comments, article: @article %>
+      <% end %>
+    </div>
   </div>
 
 
