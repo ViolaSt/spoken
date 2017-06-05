@@ -10,6 +10,7 @@ class Article < ApplicationRecord
   before_create :get_video_duration
 
   mount_uploader :photo, PhotoUploader
+  mount_uploader :audio, AudioUploader
 
   # Gets a complete link from youtube(ex: "https://www.youtube.com/watch?v=O8EMo-_6ynI")
   # and strips it: hash with provider ("YouTube") and the id ("O8EMo-_6ynI")

@@ -120,6 +120,17 @@
     </div>
   </div>
 
+  audio path: <%= cl_video_path(@article.audio) %>
+  image path: <%= cl_image_path(@article.photo) %>
+
+  <%= cl_image_tag(@article.photo, width: "100%") %>
+
+  <%= cl_video_tag(cl_video_path(@article.audio), controls: true)%>
+
+  <%= cl_image_tag("Continental_Portuguese_-_01_c58znk.png", :height=>200, :width=>"100%", :flags=>"waveform", :resource_type=>"video", color: "#0FA3B1", background: "none")  %>
+
+  <%= cl_video_tag("hio24efej5alwrysl57l", :controls => true, :fallback_content => "Content is not supported by your browser :-( Please update it to enjoy all of our services :-)") %>
+
   <!-- Comment-Form -->
   <% if user_signed_in? %>
     <div class="row">

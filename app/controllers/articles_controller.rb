@@ -64,6 +64,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :description, :audio_file, :category, :user_id, :photo, "photo_cache")
+      params.require(:article).permit(:title, :description, :audio_file, :category, :user_id, :photo, :photo_cache, :audio, :audio_cache)
     end
 end
