@@ -59,6 +59,10 @@ gem 'letter_opener', group: :development
 
 gem 'faker'
 
+# Social-Shares
+gem 'shareable'
+gem 'social-share-button'
+
 group :production do
   gem 'rails_12factor'
 end

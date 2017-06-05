@@ -1,0 +1,3 @@
+$('#comment_<%= @comment.id %>').slideUp();
+var new_counter = $("<h4><%= j @article.comments.size.to_s %>&nbsp;Comments</h4>");
+  $('#comment-counter').html(new_counter);

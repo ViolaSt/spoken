@@ -6,12 +6,10 @@ class Reading < ApplicationRecord
   def recommend!(content)
     self.recommended = true
     self.recommendation_content = content
-    save
   end
 
   def unrecommend!
     self.recommended = false
     self.recommendation_content = nil
-    save
   end
 end
