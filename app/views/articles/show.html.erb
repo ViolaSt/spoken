@@ -154,19 +154,6 @@
       <% end %>
       <% end %>
 
-
-<!-- Back-Link -->
-<%= link_to 'Back', articles_path %>
-
-<!-- User only sees an edit button if the article is theirs -->
-<% if policy(@article).edit? %>
-<%= link_to "Edit", edit_article_path(@article) %>
-<% end %>
-
-<!-- User only sees a destroy button if the article is theirs -->
-<% if policy(@article).destroy? %>
-<%= link_to "Destroy", article_path(@article), method: :delete, data: {confirm: "Are you sure?"} %>
-<% end %>
   </div>
 </div>
 
