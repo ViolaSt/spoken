@@ -116,6 +116,11 @@
 
 
   <!-- Comment-Form -->
+    <div id="comment-counter">
+    <h5>
+      <%= pluralize @article.comments.size, "Comment" %>
+    </h5>
+  </div>
   <% if user_signed_in? %>
     <div class="row">
        <% @article.comments.blank? %>
@@ -124,11 +129,6 @@
   <% end %>
 
   <!-- Comments -->
-    <div id="comment-counter">
-    <h4>
-      <%= pluralize @article.comments.size, "Comment" %>
-    </h4>
-  </div>
   <div class="row padded-sm" id="comments">
     <% if @article.comments.any? %>
       <%= render @article.comments, article: @article %>
