@@ -150,7 +150,7 @@
       <!-- User only sees a destroy button if the article is theirs -->
       <% if policy(@article).destroy? %>
       <%= link_to article_path(@article), method: :delete, data: {confirm: "Are you sure?"} do %>
-            <i class="fa fa-eye" aria-hidden="true"></i>
+            <i class="fa fa-trash" aria-hidden="true"></i>
       <% end %>
       <% end %>
 
