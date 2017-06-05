@@ -4,65 +4,36 @@
 
 <!-- Share Bar on the Side -->
 
+<!-- Left side share Bar with like and recommend button -->
 <ul id="share">
+  
+
+  <!-- Like/Unlike button logic -->
+
+  <!-- Has the user liked this article yet? -->
   <li>
-    <% if @reading.like %>
-<!--     <%= link_to "" do %>
-      <i class="fa fa-bug" aria-hidden="true"></i>
-    <% end %> -->
-    <%= link_to '', unlike_article_readings_path(@article), :method=> :post, class:'fa fa-heart' %>
-  </li>
-  <% else %>
-  <li>
-    <%= link_to '', like_article_readings_path(@article), :method=> :post, class:'fa fa-heart-o' %>
-  </li>
-  <% end %>
-  <li>
-    <p> <%=  @article.readings.where(like: true).length %></p>
+    <!-- If false, it shows a like button that user can click -->
+    <%= link_to '', unlike_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart #{'hidden' unless @reading.like }" %>
+
+    <!-- If true, it shows a unlike button (uncolored, white) that user can click -->
+    <%= link_to '', like_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart-o #{'hidden' if @reading.like }" %>
   </li>
 
-
-  <!-- bookmarking logic -->
-
-  <% if @reading.recommended? %>
   <li>
-    <%= link_to '', unrecommend_article_readings_path(@article), :method=> :post, class:'fa fa-bookmark' %>
-
+    <p id="like-count"> <%=  @article.readings.where(like: true).length %></p>
   </li>
-  <% else %>
+
+
+  <!-- Recommend/unrecommend button logic -->
+
+  <!-- Has the user recommended this article yet? -->
   <li>
-    <%= link_to '', recommend_article_readings_path(@article), { method: :post, class:'fa fa-bookmark-o', remote: true, "data-toggle" =>  "modal", "data-target" => "#modal" } %>
+    <!-- If false, it shows a recommend button that user can click (pops up a modal to input description with that recommendation) -->
+    <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark #{'hidden' unless @reading.recommend!(@article) }" %>
 
-
-
-
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Your recommendation</h4>
-            <h6>(leave blank if you want)</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <%= simple_form_for(@reading, :url => recommend_article_readings_path(@article)) do |f| %>
-            <%= f.error_notification %>
-            <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
-
-            <%=f .submit 'Submit', class: 'btn navbar-wagon-button' %>
-            <%end%>
-          </div>
-
-        </div>
-      </div>
-    </div>
-</li>
-<% end %>
+    <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
+    <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o #{'hidden' if @reading.recommend!(@article) }" %>
+  </li>
 </ul>
 
 
@@ -82,40 +53,48 @@
           <h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5>
         </li>
 
-        <!-- Checks if articles belongs to current user:
-        1. If true, button shows a link to edit profile
-        2. If false, rhen checks if user follows the author:
-          2.1 If false, buttons shows a link to follow the author
-          2.2 If true, buttons shows a link to unfollow the author -->
-          <li>
-            <% if @article.user == current_user %>
-            <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-follow" %>
-            <% else %>
-            <%= link_to 'Unfollow', unfollow_user_followings_path(@article.user), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_author_id(@article.user.id)}" %>
-            <%= link_to 'Follow', user_followings_path(@article.user), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_author_id(@article.user.id)}" %>
-            <% end %>
-          </li>
 
-        </ul>
-        <p><%= @article.user.tagline || 'Tagline' %></p>
-        <p><%= @article.created_at.strftime("%d-%m-%Y")|| 'Date' %> / <%= @article.get_video_duration || 'Duration' %> min / Category: <%= @article.category %></p>
-      </div>
+        <!-- Follow/Unfollow button logic -->
 
+        <li>
+          <!-- Checks if articles belongs to current user: -->
+          <% if @article.user == current_user %>
+
+          <!-- 1. If true, button shows a link to edit profile -->
+          <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-follow" %>
+
+          <!-- 2. If false, then checks if user follows the author: -->
+          <% else %>
+
+          <!-- 2.1 If false, buttons shows a link to follow the author -->
+          <%= link_to 'Unfollow', unfollow_user_followings_path(@article.user), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_author_id(@article.user.id)}" %>
+
+          <!-- 2.2 If true, buttons shows a link to unfollow the author -->
+          <%= link_to 'Follow', user_followings_path(@article.user), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_author_id(@article.user.id)}" %>
+
+          <% end %>
+        </li>
+
+      </ul>
+      <p><%= @article.user.tagline || 'Tagline' %></p>
+      <p><%= @article.created_at.strftime("%d-%m-%Y")|| 'Date' %> / <%= @article.get_video_duration || 'Duration' %> min / Category: <%= @article.category %></p>
     </div>
 
-    <!-- Title and Tagline -->
-    <div class="row" id="title">
-      <div class="col-xs-12 text-center">
-        <h3><strong> <%= @article.title || 'Title' %></strong></h3>
-      </div>
-    </div>
+  </div>
 
-    <!-- Youtube Player -->
-    <div class="row" id="player">
-      <iframe id="ytplayer" type="text/html" width="640" height="360"
-      src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=1"
-      frameborder="0"></iframe>
+  <!-- Title and Tagline -->
+  <div class="row" id="title">
+    <div class="col-xs-12 text-center">
+      <h3><strong> <%= @article.title || 'Title' %></strong></h3>
     </div>
+  </div>
+
+  <!-- Youtube Player -->
+  <div class="row" id="player">
+    <iframe id="ytplayer" type="text/html" width="640" height="360"
+    src="https://www.youtube.com/embed/<%= @article.video_id %>?autoplay=0"
+    frameborder="0"></iframe>
+  </div>
 
     <!-- Description -->
     <div class="row padded" id="description">
@@ -123,6 +102,7 @@
       <h4><%= @article.description || 'Description' %></h4>
     </div>
   </div>
+
 
   <!-- Comment-Form -->
   <% if user_signed_in? %>
@@ -142,26 +122,37 @@
     <% if @article.comments.any? %>
       <%= render @article.comments %>
     <% end %>
+    
+      <%= link_to articles_path do %>
+        <i class="fa fa-backward" aria-hidden="true"></i>
+      <% end %>
+      &nbsp;
+
+      <!-- User only sees an edit button if the article is theirs -->
+      <% if policy(@article).edit? %>
+      <%= link_to edit_article_path(@article) do %>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      <% end %>
+      <% end %>
+      &nbsp;
+
+      <!-- User only sees a destroy button if the article is theirs -->
+      <% if policy(@article).destroy? %>
+      <%= link_to article_path(@article), method: :delete, data: {confirm: "Are you sure?"} do %>
+            <i class="fa fa-eye" aria-hidden="true"></i>
+      <% end %>
+      <% end %>
+
   </div>
 </div>
 
-
-<%= link_to 'Back', articles_path %>
-
-<!-- User only sees an edit button if the article is theirs -->
-<% if policy(@article).edit? %>
-<%= link_to "Edit", edit_article_path(@article) %>
-<% end %>
-
-<!-- User only sees a destroy button if the article is theirs -->
-<% if policy(@article).destroy? %>
-<%= link_to "Destroy", article_path(@article), method: :delete, data: {confirm: "Are you sure?"} %>
-<% end %>
-
-
+  
+<!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
 <% content_for :after_js do %>
 <script>
   $(document).ready(function() {
+
+    // Toggle JS for follow/unfollow button
     $('.btn-unfollow').on('click', function() {
       $('.btn-follow').removeClass('hidden');
       $('.btn-unfollow').addClass('hidden');
@@ -170,7 +161,56 @@
       $('.btn-unfollow').removeClass('hidden');
       $('.btn-follow').addClass('hidden');
     });
-  });
 
+    // Toggle JS for like/unlike button:
+    $('.fa-heart-o').on('click', function() {
+      $('.fa-heart').removeClass('hidden');
+      $('.fa-heart-o').addClass('hidden');
+
+      // Increments 1 if current user likes
+      var n = parseInt($('#like-count').text()) + 1;
+      $('#like-count').text(n.toString());
+    });
+    $('.fa-heart').on('click', function() {
+      $('.fa-heart-o').removeClass('hidden');
+      $('.fa-heart').addClass('hidden');
+
+      // Decreases 1 if current user unlikes
+      var n = parseInt($('#like-count').text()) - 1;
+      $('#like-count').text(n.toString());
+    });
+
+    // Toggle JS for recommend/unrecommend button
+    $('.fa-bookmark-o').on('click', function() {
+      $('.fa-bookmark').removeClass('hidden');
+      $('.fa-bookmark-o').addClass('hidden');
+    });
+    $('.fa-bookmark').on('click', function() {
+      $('.fa-bookmark-o').removeClass('hidden');
+      $('.fa-bookmark').addClass('hidden');
+    });
+  });
 </script>
 <% end %>
+
+<!-- Modal for recommend button -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Your recommendation</h4>
+        <h6>(leave blank if you want)</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @reading, remote: true, :url => recommend_article_readings_path(@article) do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
+        <%= f.submit 'Submit', class: 'btn navbar-wagon-button' %>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
