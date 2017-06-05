@@ -28,7 +28,19 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    set_comment
     authorize @comment
+    if @comment.destroy
+      respond_to do |format|
+        format.html { redirect_to article_path(@article) }
+        format.js
+      end
+     else
+      respond_to do |format|
+        format.html { render 'articles/show' }
+        format.js  # <-- idem
+      end
+     end
   end
 
   private
@@ -39,6 +51,10 @@ class CommentsController < ApplicationController
 
   def set_article
     @article = Article.find(params[:article_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 
   # def check_if_user_has_name

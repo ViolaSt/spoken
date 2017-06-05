@@ -124,14 +124,14 @@
   <% end %>
 
   <!-- Comments -->
-  <div class="row padded-sm" id="comments">
     <div id="comment-counter">
-      <h4 id="padding-comments">
-        <%= pluralize @article.comments.size, "Comments" %>
-      </h4>
-    </div>
+    <h4>
+      <%= pluralize @article.comments.size, "Comment" %>
+    </h4>
+  </div>
+  <div class="row padded-sm" id="comments">
     <% if @article.comments.any? %>
-      <%= render @article.comments %>
+      <%= render @article.comments, article: @article %>
     <% end %>
 
       <%= link_to articles_path do %>
@@ -154,6 +154,19 @@
       <% end %>
       <% end %>
 
+
+<!-- Back-Link -->
+<%= link_to 'Back', articles_path %>
+
+<!-- User only sees an edit button if the article is theirs -->
+<% if policy(@article).edit? %>
+<%= link_to "Edit", edit_article_path(@article) %>
+<% end %>
+
+<!-- User only sees a destroy button if the article is theirs -->
+<% if policy(@article).destroy? %>
+<%= link_to "Destroy", article_path(@article), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
   </div>
 </div>
 
