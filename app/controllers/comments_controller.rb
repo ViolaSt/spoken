@@ -30,7 +30,17 @@ class CommentsController < ApplicationController
   def destroy
     set_comment
     authorize @comment
-    @comment.destroy
+    if @comment.destroy
+      respond_to do |format|
+        format.html { redirect_to article_path(@article) }
+        format.js
+      end
+     else
+      respond_to do |format|
+        format.html { render 'articles/show' }
+        format.js  # <-- idem
+      end
+     end
   end
 
   private
