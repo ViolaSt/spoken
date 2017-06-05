@@ -129,12 +129,10 @@
   <% end %>
 
   <!-- Comments -->
-  <div class="comment-title">
     <div id="comment-counter">
-    <h4 id="padding-comments">
+    <h4 id="padded-title">
       <%= pluralize @article.comments.size, "Comment" %>
     </h4>
-    </div>
   </div>
   <div class="row padded-sm" id="comments">
     <% if @article.comments.any? %>
