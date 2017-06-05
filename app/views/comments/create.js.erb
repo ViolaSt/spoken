@@ -10,7 +10,7 @@
   new_comment.slideDown();
   // Reset the form
   $('#new_comment').html("<%= j render 'shared/comment_form' , article: @article, comment: Comment.new %>");
-  var new_counter = $("<h4><%= j @article.comments.size.to_s %>&nbsp;Comments</h4>");
+  var new_counter = $("<h4><%= j @article.comments.size.to_s %>&nbsp;Comment</h4>");
   $('#comment-counter').html(new_counter);
 <% end %>
 
