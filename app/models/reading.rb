@@ -3,15 +3,15 @@ class Reading < ApplicationRecord
   belongs_to :article
   has_many :comments
 
-  def recommend!(content)
+  def recommend!(content = "")
     self.recommended = true
-    self.save
     self.recommendation_content = content
+    self.save
   end
 
   def unrecommend!
     self.recommended = false
-    self.save
     self.recommendation_content = nil
+    self.save
   end
 end
