@@ -12,7 +12,7 @@ class Article < ApplicationRecord
   mount_uploader :audio, AudioUploader
 
   include PgSearch
-  pg_search_scope :search_title_and_description, against: [ :title, :description ]
+  pg_search_scope :search_title_and_description, against: [ :title, :description, :category ]
 
 
   def audio_public_id
