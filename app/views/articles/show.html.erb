@@ -1,5 +1,5 @@
 <% content_for(:title_tag) do %>
-  <%= @article.title %>
+<%= @article.title %>
 <% end %>
 
 <!-- Share Bar on the Side -->
@@ -25,14 +25,22 @@
 
 
   <!-- Recommend/unrecommend button logic -->
-
-  <!-- Has the user recommended this article yet? -->
   <li>
-    <!-- If false, it shows a recommend button that user can click (pops up a modal to input description with that recommendation) -->
-    <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark #{'hidden' unless @reading.recommend!(@article) }" %>
 
-    <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
-    <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o #{'hidden' if @reading.recommend!(@article) }" %>
+    <!-- Has the user recommended this article yet? -->
+    <div class="recommended">
+      <% if @reading.recommended %>
+
+      <!-- If false, it shows a recommend button that user can click (pops up a modal to input description with that recommendation) -->
+      <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark" %>
+
+      <% else %>
+
+      <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
+      <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o" %>
+
+      <% end %>
+    </div>
   </li>
 
 <!-- Facebook Share Button
@@ -46,8 +54,6 @@
   </li>
 
 </ul>
-
-
 
 
   <!-- Author information -->
@@ -69,6 +75,7 @@
         2. If false, rhen checks if user follows the author:
           2.1 If false, buttons shows a link to follow the author
           2.2 If true, buttons shows a link to unfollow the author -->
+          <% if current_user.present? %>
           <li>
             <% if @article.user == current_user %>
             <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-follow" %>
@@ -77,6 +84,7 @@
             <%= link_to 'Follow', user_followings_path(@article.user), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_author_id(@article.user.id)}" %>
             <% end %>
           </li>
+          <% end %>
 
         </ul>
         <p><%= @article.user.tagline || 'Tagline' %></p>
@@ -190,7 +198,6 @@
 <% content_for :after_js do %>
 <script>
   $(document).ready(function() {
-
     // Toggle JS for follow/unfollow button
     $('.btn-unfollow').on('click', function() {
       $('.btn-follow').removeClass('hidden');
@@ -200,12 +207,10 @@
       $('.btn-unfollow').removeClass('hidden');
       $('.btn-follow').addClass('hidden');
     });
-
     // Toggle JS for like/unlike button:
     $('.fa-heart-o').on('click', function() {
       $('.fa-heart').removeClass('hidden');
       $('.fa-heart-o').addClass('hidden');
-
       // Increments 1 if current user likes
       var n = parseInt($('#like-count').text()) + 1;
       $('#like-count').text(n.toString());
@@ -213,20 +218,9 @@
     $('.fa-heart').on('click', function() {
       $('.fa-heart-o').removeClass('hidden');
       $('.fa-heart').addClass('hidden');
-
       // Decreases 1 if current user unlikes
       var n = parseInt($('#like-count').text()) - 1;
       $('#like-count').text(n.toString());
-    });
-
-    // Toggle JS for recommend/unrecommend button
-    $('.fa-bookmark-o').on('click', function() {
-      $('.fa-bookmark').removeClass('hidden');
-      $('.fa-bookmark-o').addClass('hidden');
-    });
-    $('.fa-bookmark').on('click', function() {
-      $('.fa-bookmark-o').removeClass('hidden');
-      $('.fa-bookmark').addClass('hidden');
     });
   });
 </script>

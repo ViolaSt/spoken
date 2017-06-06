@@ -1,5 +1,5 @@
 <% content_for(:title_tag) do %>
-  Your Profile
+Your Profile
 <% end %>
 
 <div class="tabs">
@@ -13,37 +13,56 @@
     <h3>Followers</h3>
   </a>
   <a class="tab" data-target="#readings">
-    <h3>Recently read</h3>
+    <h3>Recently Read</h3>
   </a>
 </div>
 
+<div class="container">
 
-
-
-<div class="container text-center">
   <div class="tab-content" id="profile">
     <%= render 'shared/profile' %>
   </div>
+
   <div class="tab-content hidden" id="bookmarks">
-    <%= render 'shared/recommendations' %>
+    <h3 class="text-center">Your bookmarked articles</h3>
+    <% current_user.readings.each do |reading| %>
+
+      <% if reading.recommended? %>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <%= render 'shared/recommendations', reading: reading %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
+
   <div class="tab-content hidden" id="followings">
     <%= render 'shared/followings' %>
   </div>
+
   <div class="tab-content hidden" id="readings">
-    <%= render 'shared/readings' %>
+    <h3 class="text-center">Your reading list</h3>
+    <% current_user.readings.each do |reading| %>
+
+      <% if reading.article.user != current_user %>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <%= render 'shared/readings', reading: reading %>
+        </div>
+      <% end  %>
+
+    <% end %>
+
   </div>
+
 </div>
 
-
 <% content_for :after_js do %>
-
 
 <script>
 
   $(function(){
 
-  $(".tab").on("click", function(e){
+    $(".tab").on("click", function(e){
     // Change active tab
     $(".tab").removeClass('active');
     $(this).addClass('active');

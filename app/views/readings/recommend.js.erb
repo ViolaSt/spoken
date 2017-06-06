@@ -1,0 +1,1 @@
+$(".recommended").html("<%= j(link_to '', unrecommend_article_readings_path(@reading.article), remote: true, method: :post, class: "fa fa-bookmark") %>")

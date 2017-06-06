@@ -1,4 +1,5 @@
 require 'faker'
+
 Comment.destroy_all
 User.destroy_all
 Article.destroy_all
@@ -53,12 +54,14 @@ User.create(
     user_id: rand(1..5),
     remote_photo_url: "http://res.cloudinary.com/dijz3a59v/image/upload/v1496142349/sxzmqgim9xx4rxdyfmpl.jpg",
   )
+
 end
 
 60.times do
   Reading.create(
     article_id: rand(1..30),
     user_id: rand(1..5),
+    recommended: false,
   )
 end
 
