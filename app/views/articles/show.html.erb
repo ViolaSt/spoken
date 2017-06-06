@@ -190,7 +190,6 @@
 <% content_for :after_js do %>
 <script>
   $(document).ready(function() {
-
     // Toggle JS for follow/unfollow button
     $('.btn-unfollow').on('click', function() {
       $('.btn-follow').removeClass('hidden');
@@ -200,12 +199,10 @@
       $('.btn-unfollow').removeClass('hidden');
       $('.btn-follow').addClass('hidden');
     });
-
     // Toggle JS for like/unlike button:
     $('.fa-heart-o').on('click', function() {
       $('.fa-heart').removeClass('hidden');
       $('.fa-heart-o').addClass('hidden');
-
       // Increments 1 if current user likes
       var n = parseInt($('#like-count').text()) + 1;
       $('#like-count').text(n.toString());
@@ -213,12 +210,10 @@
     $('.fa-heart').on('click', function() {
       $('.fa-heart-o').removeClass('hidden');
       $('.fa-heart').addClass('hidden');
-
       // Decreases 1 if current user unlikes
       var n = parseInt($('#like-count').text()) - 1;
       $('#like-count').text(n.toString());
     });
-
     // Toggle JS for recommend/unrecommend button
     $('.fa-bookmark-o').on('click', function() {
       $('.fa-bookmark').removeClass('hidden');
