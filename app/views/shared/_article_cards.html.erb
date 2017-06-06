@@ -9,7 +9,7 @@
         <!-- Avatar image -->
         <div class="col-xs-3 avatar-position">
           <div class="avatar-large">
-            <a href="#" class="hover" data-toggle="popover" title="<%= article.user.first_name %> <%= article.user.last_name %>" data-content="<b><%= article.user.bio %><nobr><i class='fa fa-envelope-o'></i> <%= article.user.email %></nobr> " data-trigger="hover">
+            <a href="<%= user_path(article.user) %>" class="hover" data-toggle="popover" title="<%= article.user.first_name %> <%= article.user.last_name %>" data-content="<b><%= article.user.bio %><nobr><i class='fa fa-envelope-o'></i> <%= article.user.email %></nobr> " data-trigger="hover">
               <img class= "card-user-avatar avatar-large" src=" <%= cl_image_path(user_image_path_large(article.user)) %>">
             </a>
           </div>
