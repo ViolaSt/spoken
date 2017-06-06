@@ -14,7 +14,7 @@
             <%= f.input :first_name, label: "First name" %>
           <%= f.input :last_name, label: "Last name" %>
           <%= f.input :tagline, label: "Tagline", placeholder: 'avid traveler and gourmet aficionado turned writer' %>
-          <%= f.input :bio, label: "Bio", placeholder: 'Graduate of Literature from University of Ohio & publisher of cutting-edge articles about culinary culture.' %>
+          <%= f.input :bio, label: "Bio", placeholder: 'Graduate of Literature from University of Ohio & publisher of cutting-edge articles about culinary culture.', :input_html => {:style => "height: 100px", :maxlength => 145} %>
           <%= f.input :photo %>
           <%= f.input :photo_cache, as: :hidden %>
           <%= f.input :email, required: true, autofocus: true %>

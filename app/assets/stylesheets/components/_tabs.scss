@@ -1,10 +1,10 @@
 .tabs {
-  background: white;
+  background: #F3F3F3;
   display: flex;
-  padding: 10px 100px 0 100px;
+  padding: 0 100px 0 100px;
 }
 .tabs a {
-  color: white;
+  color: darken(#F3F3F3, 20%);
 }
 .tabs a:hover {
   cursor: pointer;
@@ -12,8 +12,8 @@
   opacity: 0.8;
 }
 .tabs h3 {
-  font-size: 17px;
-  font-weight: bold;
+  font-size: 15px;
+  font-weight: normal;
   margin: 0;
 }
 .tabs p {
@@ -21,23 +21,21 @@
   margin-bottom: 0;
 }
 .tab {
-  background: lighten($blue, 5%);
+  background: none;
   flex: 1 1 auto;
   text-align: center;
-  padding: 20px 0;
+  padding: 0;
   margin: 10px 5px;
-  border-radius: 10px 10px 0 0;
+  font-weight: lighter;
 }
 
 .tab.active {
-  background: white;
-  border-left: 3px solid;
-  border-top: 3px solid;
-  border-right: 3px solid;
-  border-color: $blue;
-  color: black;
+  background: none;
+  color: $blue;
+}
+.tab.active h3 {
+  font-weight: bold;
 }
 .tab-content {
   padding-top: 50px;
 }
-

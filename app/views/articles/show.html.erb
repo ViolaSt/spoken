@@ -129,28 +129,31 @@
 
 
   <!-- Comment-Form -->
-<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
     <div id="comment-counter">
     <h5>
       <%= pluralize @article.comments.size, "Comment" %>
     </h5>
   </div>
-  <% if user_signed_in? %>
-    <div class="row">
-       <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+</div>
+<% if user_signed_in? %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
-       <% @article.comments.blank? %>
+      <% @article.comments.blank? %>
         <%= render 'shared/comment_form', article: @article, comment: @comment %>
-      </div>
-      </div>
-  <% end %>
+    </div>
+  </div>
+<% end %>
 
   <!-- Comments -->
   <div class="row padded-sm" id="comments">
-
-    <% if @article.comments.any? %>
-      <%= render @article.comments, article: @article %>
-    <% end %>
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <% if @article.comments.any? %>
+        <%= render @article.comments, article: @article %>
+      <% end %>
+    </div>
   </div>
 
 
@@ -185,7 +188,6 @@
 <% content_for :after_js do %>
 <script>
   $(document).ready(function() {
-
     // Toggle JS for follow/unfollow button
     $('.btn-unfollow').on('click', function() {
       $('.btn-follow').removeClass('hidden');
@@ -195,12 +197,10 @@
       $('.btn-unfollow').removeClass('hidden');
       $('.btn-follow').addClass('hidden');
     });
-
     // Toggle JS for like/unlike button:
     $('.fa-heart-o').on('click', function() {
       $('.fa-heart').removeClass('hidden');
       $('.fa-heart-o').addClass('hidden');
-
       // Increments 1 if current user likes
       var n = parseInt($('#like-count').text()) + 1;
       $('#like-count').text(n.toString());
@@ -208,12 +208,10 @@
     $('.fa-heart').on('click', function() {
       $('.fa-heart-o').removeClass('hidden');
       $('.fa-heart').addClass('hidden');
-
       // Decreases 1 if current user unlikes
       var n = parseInt($('#like-count').text()) - 1;
       $('#like-count').text(n.toString());
     });
-
     // Toggle JS for recommend/unrecommend button
     $('.fa-bookmark-o').on('click', function() {
       $('.fa-bookmark').removeClass('hidden');
