@@ -1,6 +1,5 @@
 #popover {
-  padding-right: 30px;
-  padding-left: 30px;
+  padding-left: 15px;
   margin-top: 20px;
   margin-bottom: 5px;
 }
@@ -16,12 +15,14 @@
   background-color: white;
   border-radius: 2%;
   margin-bottom: 30px;
-  margin-left: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 .card-user-avatar{
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 10px;
+  bottom: 30px;
 }
 .avatar-large{
   width: 50px;
