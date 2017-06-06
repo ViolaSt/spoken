@@ -16,15 +16,3 @@ class Article < ApplicationRecord
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
