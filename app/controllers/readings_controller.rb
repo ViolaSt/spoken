@@ -9,28 +9,26 @@ class ReadingsController < ApplicationController
     authorize @reading
     @reading.like = true
     @reading.save
-    redirect_to @article
+    render :json => @reading
   end
 
   def unlike
     authorize @reading
     @reading.like = false
     @reading.save
-    redirect_to @article
+    render :json => @reading
   end
 
   def recommend
     authorize @reading
-    @reading.recommend!(params[:reading][:recommendation_content])
+    @reading.recommend!
     @reading.save
-    redirect_to @article
   end
 
   def unrecommend
     authorize @reading
-    @reading.unrecommend!(params[:reading][:recommendation_content])
+    @reading.unrecommend!
     @reading.save
-    redirect_to @article
   end
 
   # @dan: Added this line to make methods private and prevent injections
