@@ -30,12 +30,22 @@
   border-radius: 50%;
   margin-bottom: 20px;
 }
+#article-info{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+   p {
+    color: $gray-light;
+    font-size: 14px;
+  }
+}
 .article-info{
   position: absolute;
   left: 10px;
   top: 10px;
-  p {
+   p {
     color: $gray-light;
+    font-size: 14px;
   }
 }
 .article-photo {

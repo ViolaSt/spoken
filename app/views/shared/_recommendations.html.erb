@@ -1,14 +1,9 @@
-<h3>Your bookmarked articles</h3>
 <br>
 <br>
 
-<% current_user.readings.each do |reading| %>
-
-<% if reading.recommended? %>
-
-<div class="col-xs-12 col-sm-6 col-md-4">
   <div class="row card-padding">
     <div class="one-card">
+
 
       <!-- Top row with avatar, author name and article info -->
       <div class="col-xs-12">
@@ -59,10 +54,8 @@
 
     </div>
   </div>
-</div>
 
-<% end %>
-<% end %>
+
 
 
 <% content_for :after_js do %>

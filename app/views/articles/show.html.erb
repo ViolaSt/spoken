@@ -29,10 +29,10 @@
   <!-- Has the user recommended this article yet? -->
   <li>
     <!-- If false, it shows a recommend button that user can click (pops up a modal to input description with that recommendation) -->
-    <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark #{'hidden' unless @reading.recommend!(@article) }" %>
+    <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark #{'hidden' if @reading.recommend!(@article) }" %>
 
     <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
-    <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o #{'hidden' if @reading.recommend!(@article) }" %>
+    <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o #{'hidden' unless @reading.recommend!(@article) }" %>
   </li>
 
 <!-- Facebook Share Button
@@ -46,8 +46,6 @@
   </li>
 
 </ul>
-
-
 
 
   <!-- Author information -->
