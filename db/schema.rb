@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605094856) do
+ActiveRecord::Schema.define(version: 20170606225122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20170605094856) do
     t.text "description"
     t.datetime "date"
     t.float "duration"
-    t.string "audio_file"
     t.string "category"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -60,6 +59,15 @@ ActiveRecord::Schema.define(version: 20170605094856) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_followings_on_author_id"
     t.index ["follower_id"], name: "index_followings_on_follower_id"
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
   create_table "readings", force: :cascade do |t|
