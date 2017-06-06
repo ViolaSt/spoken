@@ -232,24 +232,4 @@
 </script>
 <% end %>
 
-<!-- Modal for recommend button -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Your recommendation</h4>
-        <h6>(leave blank if you want)</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for @reading, remote: true, :url => recommend_article_readings_path(@article) do |f| %>
-        <%= f.error_notification %>
-        <%= f.input :recommendation_content, label: false, placeholder: "This article was a life-changer!"  %>
-        <%= f.submit 'Submit', class: 'btn navbar-wagon-button' %>
-        <%end%>
-      </div>
-    </div>
-  </div>
-</div>
+

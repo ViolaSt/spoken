@@ -63,6 +63,8 @@ gem 'faker'
 gem 'shareable'
 gem 'social-share-button'
 
+gem 'pg_search'
+
 group :production do
   gem 'rails_12factor'
 end

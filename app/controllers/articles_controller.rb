@@ -3,7 +3,15 @@ class ArticlesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show ]
 
   def index
-    @articles = policy_scope(Article)
+
+    if params[:query]
+      @articles = policy_scope(Article).search_title_and_description(params[:query])
+      if @articles.empty?
+        "no articles match your search"
+      end
+    else
+      @articles = policy_scope(Article)
+    end
   end
 
   def show
