@@ -5,6 +5,11 @@
  * ------------------------------------- */
 
 // Links
+a:-webkit-any-link {
+    text-decoration: none;
+    cursor: auto;
+}
+
 a {
   color: $blue;
   &:hover {
