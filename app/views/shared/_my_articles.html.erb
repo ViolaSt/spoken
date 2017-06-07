@@ -55,6 +55,10 @@
         </ul>
       </div>
 
+      <% if @article.comments.any? %>
+        <%= render @article.comments, article: @article %>
+      <% end %>
+
     </div>
 
   </div>
