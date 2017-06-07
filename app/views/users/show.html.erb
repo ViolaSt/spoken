@@ -1,0 +1,13 @@
+<div class="container">
+<!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3"> -->
+
+  <h1> <%= cl_image_tag(user_image_path_large(@user), class: "avatar-large") %> <%= @user.first_name %> <%= @user.last_name %></h1>
+    <p><%= @user.bio %></p>
+
+  //additional info about the user
+  - followers?
+  - recommended articles?
+
+
+<!-- </div> -->
+</div>
