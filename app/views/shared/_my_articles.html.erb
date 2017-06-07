@@ -55,9 +55,9 @@
           <li class="float-right">
           <p>
           <i class="fa fa-comment-o" aria-hidden="true"></i> <%= article.comments.count %>
-
+          &nbsp;
           <i class="fa fa-headphones"></i> <%= article.readings.count %>
-
+          &nbsp;
           <i class="fa fa-heart"></i> <%= article.readings.where(like: true).length %></li>
           </p>
         </ul>
