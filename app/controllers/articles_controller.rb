@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new
     authorize @article
+    @categories = ["Creativity", "Entrepreneurship", "Health", "Music", "Self", "Sex", "Sports", "Technology"]
   end
 
   def edit
