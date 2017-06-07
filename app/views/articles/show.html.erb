@@ -62,7 +62,7 @@
 
 
   <!-- Author information -->
-  <div class="row padded" >
+  <div class="row padded-sm" >
     <!-- User avatar picture -->
     <div class="col-sm-1 col-sm-offset-3">
       <%= cl_image_tag(user_image_path_large(@article.user), class: "avatar-large") || 'Image' %>
@@ -112,7 +112,7 @@
     <!-- cloudinary audio player -->
 
     <% if @article.audio? %>
-    <div class="row padded">
+    <div class="row padded-sm">
       <div class="col-sm-6 col-sm-offset-3">
 
         <%= cl_image_tag(@article.photo, width: "100%") %>
@@ -135,9 +135,9 @@
 
 
     <!-- Description -->
-    <div class="row padded" id="description">
+    <div class="row text-center" id="description">
        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-          <h4><%= @article.description || 'Description' %></h4>
+          <p><%= @article.description || 'Description' %></p>
       </div>
     </div>
 
