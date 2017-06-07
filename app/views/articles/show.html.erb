@@ -95,7 +95,7 @@
         <p><%= @article.user.tagline || 'Tagline' %></p>
         <p><%= @article.created_at.strftime("%e %B %Y") %>
         <% if @article.category? %>
-            / Category: <%= @article.category %></p>
+            / <%= @article.category %></p>
         <% end %>
       </div>
     </div>
