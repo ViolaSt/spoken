@@ -1,0 +1,6 @@
+# config/meta.yml
+
+meta_product_name: "Spoken"
+meta_title: "Spoken - Listen To Stories"
+meta_description: "Smart content for people who prefer audio"
+meta_image: "spoken_social_card.png"                       # should exist in `app/assets/images/`

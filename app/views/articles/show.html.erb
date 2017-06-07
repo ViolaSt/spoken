@@ -2,6 +2,10 @@
 <%= @article.title %>
 <% end %>
 
+<% content_for :meta_title, "#{@article.name} is on #{DEFAULT_META["meta_product_name"]}" %>
+<% content_for :meta_description, @article.description %>
+<% content_for :meta_image, cloudinary_url(@article.photo.path) %>
+
 <!-- Share Bar on the Side -->
 
 <!-- Left side share Bar with like and recommend button -->
