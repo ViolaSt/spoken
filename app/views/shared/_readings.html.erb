@@ -22,7 +22,7 @@
         <div class="col-xs-9">
           <div id="article-info">
             <h5><%= "#{reading.article.user.first_name} #{reading.article.user.last_name}" %></h5>
-            <p><small><%= reading.article.created_at.strftime("%d-%m-%Y") %> - <%=  %> min </small></p>
+            <p><small><%= reading.article.created_at.strftime("%e %B %Y") %></small></p>
           </div>
         </div>
 
@@ -48,7 +48,9 @@
       <!-- Article category and number of likes -->
       <div class="col-xs-12">
         <ul class="list-inline article-category">
-          <li><p>in <%= reading.article.category %></p></li>
+        <% if reading.article.category? %>
+          <li><p>in <strong><%= reading.article.category %></strong></p></li>
+        <% end %>
           <li class="float-right"><p class="fa fa-heart"> <%= reading.article.readings.where(like: true).length %></p></li>
         </ul>
       </div>

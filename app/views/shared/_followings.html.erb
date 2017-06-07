@@ -1,13 +1,13 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-6">
+      <div class="white-wrapper">
       <h3 class="text-center">Users you follow</h3>
       <br><br>
         <table>
           <% current_user.follower_followings.each do |following| %>
             <% if current_user != following.author %>
               <tr>
-                <div class="col-xs-12">
 
 
                   <a href="#" data-toggle="popover" title="<%= following.author.first_name %> <%= following.author.last_name %>" data-content="<%= following.author.email %>" data-trigger="hover">
@@ -15,32 +15,32 @@
                     <img src=" <%= cl_image_path(avatar_image_path(following.author)) %>">
                   </a>
                   <h6><%= "#{following.author.first_name} #{following.author.last_name}" %></h6>
-                </div>
               </tr>
             <% end %>
           <% end %>
         </table>
       </div>
+      </div>
 
       <div class="col-xs-12 col-sm-6">
+      <div class="white-wrapper">
       <h3 class="text-center">Your Followers</h3>
       <br><br>
         <table>
           <% current_user.author_followings.each do |following| %>
             <% if current_user != following.follower %>
               <tr>
-                <div class="col-xs-12">
-                  <a href="#" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
+                  <a href="user_path(following.follower)" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
 
                   <img src=" <%= cl_image_path(avatar_image_path(following.follower)) %>">
                   </a>
                   <h6><%= "#{following.follower.first_name} #{following.follower.last_name}" %></h6>
-                </div>
               </tr>
             <% end %>
           <% end %>
         </table>
       </div>
+    </div>
   </div>
 </div>
 
