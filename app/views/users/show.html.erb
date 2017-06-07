@@ -1,13 +1,82 @@
-<div class="container">
-<!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3"> -->
+<% content_for(:title_tag) do %>
+  <% if @user.first_name? %>
+    <%= @user.first_name %>'s Profile
+  <% else %>
+    User's Profile
+  <% end %>
+<% end %>
 
+<!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3"> -->
+<div class="container">
   <h1> <%= cl_image_tag(user_image_path_large(@user), class: "avatar-large") %> <%= @user.first_name %> <%= @user.last_name %></h1>
     <p><%= @user.bio %></p>
-
-  //additional info about the user
-  - followers?
-  - recommended articles?
-
-
-<!-- </div> -->
 </div>
+<div class="grey-wapper">
+    <div class="tabs">
+      <a class="tab active" data-target="#usersarticles">
+        <h3><%= @user.first_name %>'s Articles</h3>
+      </a>
+
+      <a class="tab" data-target="#bookmarks">
+        <h3>Bookmarked by <%= @user.first_name %></h3>
+      </a>
+      <a class="tab" data-target="#followings">
+        <h3><%= @user.first_name %>'s Followers</h3>
+      </a>
+    </div>
+
+
+
+
+<div class="container">
+
+  <div class="tab-content" id="usersarticles">
+    <% @user.articles.each do |article| %>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <%= render 'shared/users_articles', article: article %>
+      </div>
+    <% end %>
+  </div>
+
+
+
+  <div class="tab-content hidden" id="bookmarks">
+
+    <% @user.readings.each do |reading| %>
+
+      <% if reading.recommended? %>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <%= render 'shared/users_recommendations', reading: reading %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="tab-content hidden" id="followings">
+    <%= render 'shared/users_followings' %>
+  </div>
+
+</div>
+</div>
+
+<% content_for :after_js do %>
+
+<script>
+
+  $(function(){
+
+    $(".tab").on("click", function(e){
+    // Change active tab
+    $(".tab").removeClass('active');
+    $(this).addClass('active');
+    // Hide all tab-content (use class="hidden")
+    $(".tab-content").addClass('hidden');
+    // Show target tab-content (use class="hidden")
+    $($(this).data('target')).removeClass('hidden');
+  });
+
+});</script>
+
+<% end %>
+

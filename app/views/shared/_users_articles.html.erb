@@ -1,0 +1,78 @@
+<br>
+<br>
+
+
+  <div class="row card-padding">
+
+    <div class="one-card">
+
+      <!-- Top row with avatar, author name and article info -->
+      <div class="col-xs-12">
+
+        <!-- Avatar image -->
+        <div class="col-xs-3 avatar-position">
+          <div class="avatar-large">
+
+              <img class= "card-user-avatar avatar-large" src=" <%= cl_image_path(user_image_path_large(article.user)) %>">
+          </div>
+        </div>
+
+        <!-- Author name, how many days ago it was posted and duration -->
+        <div class="col-xs-9">
+          <div id="article-info">
+            <h5><%= "#{article.user.first_name} #{article.user.last_name}" %></h5>
+            <p><small><%= article.created_at.strftime("%e %B %Y") %></small></p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- Article Photo -->
+      <div class="col-xs-12">
+        <div class="card-wrapper">
+          <div class="article-photo" style="background-image: url('<%= cl_image_path(article_image_path(article)) %>');">
+
+            <a class="article-link" href="<%= article_path(article) %>"></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article title and description -->
+      <div class="col-xs-12 article-title">
+        <h4><%= article.title %></h4>
+        <p><%= article.description[0..240] %></p>
+      </div>
+
+      <!-- Article category and number of likes -->
+      <div class="col-xs-12">
+        <ul class="list-inline article-category">
+          <li>
+          <% if article.category? %>
+          <p>in <strong><%= article.category %></strong></p></li>
+          <% end %>
+          <li class="float-right">
+          <p>
+
+          <i class="fa fa-headphones"></i> <%= article.readings.count %>
+          &nbsp;
+          <i class="fa fa-heart"></i> <%= article.readings.where(like: true).length %></li>
+          </p>
+        </ul>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+<% content_for :after_js do %>
+<script>$(document).ready(function(){
+  $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
+<% end %>
+
+
+

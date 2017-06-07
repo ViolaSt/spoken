@@ -10,7 +10,6 @@
   top: 5px !important;
   left: 65px !important;
 }
-
 .article-category p {
   color: $gray-light;
 }
@@ -18,13 +17,11 @@
   color: $blue;
 }
 
-.popover {
-    top: 5px !important;
-    left: 65px !important;
-}
+
 .grey-wapper{
   background-color:#F3F3F3;
   min-height: calc(100vh - 120px);
+  padding-right: 20px;
 }
 .white-wrapper {
   background: white;
