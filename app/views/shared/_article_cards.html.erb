@@ -49,9 +49,11 @@
           <p>in <strong><%= article.category %></strong></p></li>
           <% end %>
           <li class="float-right">
-          <p class="fa fa-headphones"> <%= article.readings.count %></p>
+          <p>
+          <i class="fa fa-headphones"></i> <%= article.readings.count %>
 
-          <p class="fa fa-heart"> <%= article.readings.where(like: true).length %></p></li>
+          <i class="fa fa-heart"></i> <%= article.readings.where(like: true).length %></li>
+          </p>
         </ul>
       </div>
 
