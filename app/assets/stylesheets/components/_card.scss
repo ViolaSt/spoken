@@ -6,6 +6,13 @@
   left: 300px;
 }
 
+.article-category p {
+  color: $gray-light;
+}
+.article-category .fa {
+  color: $blue;
+}
+
 .popover {
     top: 5px !important;
     left: 65px !important;
