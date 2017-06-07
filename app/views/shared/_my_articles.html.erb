@@ -48,16 +48,22 @@
       <!-- Article category and number of likes -->
       <div class="col-xs-12">
         <ul class="list-inline article-category">
-        <% if article.category? %>
-          <li><p>in <strong><%= article.category %></strong></p></li>
-        <% end %>
-          <li class="float-right"><p class="fa fa-heart"> <%= article.readings.where(like: true).length %></p></li>
+          <li>
+          <% if article.category? %>
+          <p>in <strong><%= article.category %></strong></p></li>
+          <% end %>
+          <li class="float-right">
+          <p>
+          <i class="fa fa-comment-o" aria-hidden="true"></i> <%= article.comments.count %>
+          &nbsp;
+          <i class="fa fa-headphones"></i> <%= article.readings.count %>
+          &nbsp;
+          <i class="fa fa-heart"></i> <%= article.readings.where(like: true).length %></li>
+          </p>
         </ul>
       </div>
 
-      <% if @article.comments.any? %>
-        <%= render @article.comments, article: @article %>
-      <% end %>
+
 
     </div>
 
