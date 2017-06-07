@@ -5,7 +5,7 @@ class Article < ApplicationRecord
   has_many :readings, dependent: :destroy
   has_many :comments, through: :readings, dependent: :destroy
 
-  validates :title, :description, presence: true
+  validates :title, :description, :category, :audio, :photo, presence: true
 
 
   mount_uploader :photo, PhotoUploader
