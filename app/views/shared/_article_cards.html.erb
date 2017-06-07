@@ -44,8 +44,14 @@
       <!-- Article category and number of likes -->
       <div class="col-xs-12">
         <ul class="list-inline article-category">
-          <li><p>in <%= article.category %></p></li>
-          <li class="float-right"><p class="fa fa-heart"> <%= article.readings.where(like: true).length %></p></li>
+          <li>
+          <% if article.category? %>
+          <p>in <strong><%= article.category %></strong></p></li>
+          <% end %>
+          <li class="float-right">
+          <p class="fa fa-headphones"> <%= article.readings.count %></p>
+
+          <p class="fa fa-heart"> <%= article.readings.where(like: true).length %></p></li>
         </ul>
       </div>
 
