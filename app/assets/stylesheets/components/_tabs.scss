@@ -1,10 +1,12 @@
 .tabs {
-  background: #F3F3F3;
+  background: darken(#F3F3F3, 1%);
   display: flex;
+  align-items: center;
+  height: 50px;
   padding: 0 100px 0 100px;
 }
 .tabs a {
-  color: darken(#F3F3F3, 20%);
+  color: darken(#F3F3F3, 25%);
 }
 .tabs a:hover {
   cursor: pointer;
@@ -38,4 +40,5 @@
 }
 .tab-content {
   padding-top: 50px;
+
 }

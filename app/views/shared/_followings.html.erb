@@ -1,46 +1,65 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-6">
+      <div class="white-wrapper">
       <h3 class="text-center">Users you follow</h3>
       <br><br>
-        <table>
+        <table class="table" id="followings">
+        <tr class="hidden"></tr>
           <% current_user.follower_followings.each do |following| %>
             <% if current_user != following.author %>
-              <tr>
-                <div class="col-xs-12">
-
-
+              <tr id="followings-table-<%= following.author.id %>">
+              <td class="col-sm-2">
                   <a href="#" data-toggle="popover" title="<%= following.author.first_name %> <%= following.author.last_name %>" data-content="<%= following.author.email %>" data-trigger="hover">
 
                     <img src=" <%= cl_image_path(avatar_image_path(following.author)) %>">
                   </a>
+                </td class="col-sm-8">
+                <td>
                   <h6><%= "#{following.author.first_name} #{following.author.last_name}" %></h6>
-                </div>
+                </td>
+                <td class="col-sm-2">
+                  <% if current_user.present? %>
+                    <%= link_to 'Following', unfollow_user_followings_path(following.author), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_follower_id(following.follower.id)}", data:{target: "#follow#{following.author.id}"}, id:"following#{following.author.id}" %>
+                    <%= link_to 'Follow', user_followings_path(following.follower), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_follower_id(following.follower.id)}", id:"follow#{following.author.id}", data:{target: "#following#{following.author.id}"}%>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           <% end %>
         </table>
+      </div>
       </div>
 
       <div class="col-xs-12 col-sm-6">
+      <div class="white-wrapper">
       <h3 class="text-center">Your Followers</h3>
       <br><br>
-        <table>
+        <table class="table" id="followers">
           <% current_user.author_followings.each do |following| %>
             <% if current_user != following.follower %>
-              <tr>
-                <div class="col-xs-12">
-                  <a href="#" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
+              <tr id="followers-table-<%=following.follower.id %>">
+              <td class="col-sm-2">
+                <a href="user_path(following.follower)" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
 
                   <img src=" <%= cl_image_path(avatar_image_path(following.follower)) %>">
                   </a>
+                </td>
+                <td class="col-sm-8">
                   <h6><%= "#{following.follower.first_name} #{following.follower.last_name}" %></h6>
-                </div>
+                </td>
+                <td class="col-sm-2">
+                  <% if current_user.present? %>
+                    <%= link_to 'Following', unfollow_user_followings_path(following.follower), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_author_id(following.follower.id)}", data:{target: "#unfollowers#{following.follower.id}"}, id:"followers#{following.follower.id}", untablerow: "#followers-table-#{following.follower.id}" %>
+                    <%= link_to 'Follow', user_followings_path(following.follower), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_author_id(following.follower.id)}", id:"unfollowers#{following.follower.id}", data:{target: "#followers#{following.follower.id}", tablerow: "#followers-table-#{following.follower.id}"} %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           <% end %>
         </table>
       </div>
+    </div>
   </div>
 </div>
 
@@ -51,6 +70,30 @@
 <script>$(document).ready(function(){
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
 });</script>
+<!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
+<script>
+  $(document).ready(function() {
+    // Toggle JS for follow/unfollow button
+    $('.btn-unfollow').on('click', function() {
+      var target = $(this).data("target");
+      $(this).addClass('hidden');
+      $(target).removeClass('hidden');
+    });
+
+    $('.btn-follow').on('click', function() {
+      var target = $(this).data("target");
+      $(this).addClass('hidden');
+      $(target).removeClass('hidden');
+    });
+
+    // $("#followers .btn-follow").on('click', function() {
+    //   var target = $(this).data("tablerow");
+    //   $($(target)).clone().appendTo("#followings > tbody");
+    // });
+
+
+  });
+</script>
 <% end %>
 
 
