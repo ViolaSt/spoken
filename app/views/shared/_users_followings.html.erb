@@ -1,0 +1,95 @@
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+      <div class="white-wrapper">
+      <h3 class="text-center">Authors <%= @user.first_name %> Follows</h3>
+      <br><br>
+        <table class="table" id="followings" style="width:50%>
+        <tr class="hidden"></tr>
+          <% @user.follower_followings.each do |following| %>
+            <% if @user != following.author %>
+              <tr id="followings-table-<%= following.author.id %>">
+              <td class="col-sm-4"></td>
+              <td class="col-sm-2">
+                  <a href="#" data-toggle="popover" title="<%= following.author.first_name %> <%= following.author.last_name %>" data-content="<%= following.author.email %>" data-trigger="hover">
+
+                    <img src=" <%= cl_image_path(avatar_image_path(following.author)) %>">
+                  </a>
+                </td>
+                <td class="col-sm-3">
+                  <h6><%= "#{following.author.first_name} #{following.author.last_name}" %></h6>
+                </td>
+                <td class="col-sm-3"></td>
+
+                </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6">
+      <div class="white-wrapper">
+      <h3 class="text-center"><%= @user.first_name %>'s Followers</h3>
+      <br><br>
+
+        <table class="table" id="followers">
+          <% @user.author_followings.each do |following| %>
+            <% if @user != following.follower %>
+              <tr id="followers-table-<%=following.follower.id %>">
+              <td class="col-sm-4"></td>
+
+              <td class="col-sm-2">
+                <a href="user_path(following.follower)" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
+
+                  <img src=" <%= cl_image_path(avatar_image_path(following.follower)) %>">
+                  </a>
+                </td>
+                <td class="col-sm-3">
+                  <h6><%= "#{following.follower.first_name} #{following.follower.last_name}" %></h6>
+                </td>
+                <td class="col-sm-3"></td>
+
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<% content_for :after_js do %>
+
+<script>$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+});</script>
+<!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
+<script>
+  $(document).ready(function() {
+    // Toggle JS for follow/unfollow button
+    $('.btn-unfollow').on('click', function() {
+      var target = $(this).data("target");
+      $(this).addClass('hidden');
+      $(target).removeClass('hidden');
+    });
+
+    $('.btn-follow').on('click', function() {
+      var target = $(this).data("target");
+      $(this).addClass('hidden');
+      $(target).removeClass('hidden');
+    });
+
+    // $("#followers .btn-follow").on('click', function() {
+    //   var target = $(this).data("tablerow");
+    //   $($(target)).clone().appendTo("#followings > tbody");
+    // });
+
+
+  });
+</script>
+<% end %>
+
+
