@@ -15,37 +15,36 @@
   <!-- Like/Unlike button logic -->
 
   <!-- Has the user liked this article yet? -->
-   <% if @article.user == !current_user %>
-    <li>
-      <!-- If false, it shows a like button that user can click -->
-      <%= link_to '', unlike_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart #{'hidden' unless @reading.like }" %>
+  <% if @article.user != current_user %>
+  <li>
+    <!-- If false, it shows a like button that user can click -->
+    <%= link_to '', unlike_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart #{'hidden' unless @reading.like }" %>
 
-      <!-- If true, it shows a unlike button (uncolored, white) that user can click -->
-      <%= link_to '', like_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart-o #{'hidden' if @reading.like }" %>
-    </li>
+    <!-- If true, it shows a unlike button (uncolored, white) that user can click -->
+    <%= link_to '', like_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart-o #{'hidden' if @reading.like }" %>
+  </li>
 
-    <li>
-      <p id="like-count"> <%=  @article.readings.where(like: true).length %></p>
-    </li>
+  <li>
+    <p id="like-count"> <%=  @article.readings.where(like: true).length %></p>
+  </li>
 
 
-    <!-- Recommend/unrecommend button logic -->
-    <li>
+  <!-- Recommend/unrecommend button logic -->
+  <li>
 
-      <!-- Has the user recommended this article yet? -->
-      <div class="recommended">
-        <% if @reading.recommended %>
+    <!-- Has the user recommended this article yet? -->
+    <div class="recommended">
+      <% if current_user.present? %>
 
-        <!-- If false, it shows a recommend button that user can click (pops up a modal to input description with that recommendation) -->
-        <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark" %>
+      <!-- If false, it shows a recommend button that user can click (pops up a modal to input description with that recommendation) -->
+      <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark" %>
 
-        <% else %>
+      <% else %>
 
-        <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
-        <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o" %>
-
-        <% end %>
-     <% end %>
+      <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
+      <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o" %>
+      <% end %>
+    <% end %>
     </div>
   </li>
 
