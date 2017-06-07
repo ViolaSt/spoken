@@ -1,3 +1,6 @@
+#main-container {
+  max-width: 640px;
+}
 .img-circle {
   border-radius: 50;
   width: 30px;
@@ -75,9 +78,14 @@
   border-color: $blue;
 }
 
-#main-container {
-  max-width: 640px;
+
+#description {
+ line-height: 1.5;
+ font-style: italic;
+ padding-top: 20px;
+ padding-bottom: 20px;
 }
+
 
 #comment-title {
   height: 30px;
