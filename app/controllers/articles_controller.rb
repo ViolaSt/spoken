@@ -4,11 +4,8 @@ class ArticlesController < ApplicationController
 
   def index
 
-    if params[:query]
+    if params[:query] && params[:query] != ""
       @articles = policy_scope(Article).search_title_and_description(params[:query])
-      if @articles.empty?
-        "no articles match your search"
-      end
     else
       @articles = policy_scope(Article)
     end

@@ -19,4 +19,7 @@ class Article < ApplicationRecord
     audio.instance_variable_get("@public_id")
   end
 
+  CATEGORIES = ["Creativity", "Entrepreneurship", "Health", "Music", "Self", "Sex", "Sports", "Technology"]
+
+
 end
