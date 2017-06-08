@@ -1,24 +1,40 @@
 <% content_for(:title_tag) do %>
-  Spoken - Listen To Stories
+Spoken - Listen To Stories
 <% end %>
 
+<% unless params[:query] %>
 <%= render 'shared/banner'%>
-
-<!-- Background color on the entire page (grey) -->
+<% end %>
 <div class="grey-wapper">
-
   <div class="container">
 
-    <!-- Category title -->
+    <% if @articles.empty?  %>
+    <h2 class="text-center">no articles match your search</h2>
 
-    <br>
-    <br>
-    <br>
+    <% else %>
+    <!-- Background color on the entire page (grey) -->
 
-    <%= render 'shared/article_cards'%>
+
+
+    <% Article::CATEGORIES.each do |c| %>
+    <% if @articles.where(category: c).any? %>
+    <div class="row">
+      <h2 class="index-category-name"><%= c %></h2>
+      <br>
+
+      <% @articles.each do |article| %>
+      <% if article.category == c %>
+      <%= render 'shared/article_cards', article: article%>
+      <% end %>
+      <% end  %>
+    </div>
+    <% end %>
+    <% end %>
+
 
   </div>
 </div>
+<% end %>
 
 <% content_for :after_js do %>
 
