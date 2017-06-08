@@ -65,14 +65,16 @@
   <div class="row padded-sm" >
     <!-- User avatar picture -->
     <div class="col-sm-1 col-sm-offset-3">
-      <%= cl_image_tag(user_image_path_large(@article.user), class: "avatar-large") || 'Image' %>
+      <%= link_to user_path(@article.user) do %>
+        <%= cl_image_tag(user_image_path_large(@article.user), class: "avatar-huge") %>
+      <% end %>
     </div>
     <!-- User first and last name -->
     <div class="col-sm-5">
 
       <ul class="list-inline">
         <li>
-          <h5><%= @article.user.first_name || 'First Name' %> <%= @article.user.last_name || 'Last Name' %></h5>
+          <h5><%= @article.user.first_name %> <%= @article.user.last_name %></h5>
         </li>
 
         <!-- Checks if articles belongs to current user:
@@ -93,7 +95,8 @@
 
         </ul>
         <p><%= @article.user.tagline || 'Tagline' %></p>
-        <p><%= @article.created_at.strftime("%e %B %Y") %>
+        <br>
+        <p>Article published on <%= @article.created_at.strftime("%e %B %Y") %>
         <% if @article.category? %>
             / <%= @article.category %></p>
         <% end %>
