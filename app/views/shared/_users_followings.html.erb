@@ -4,25 +4,30 @@
       <div class="white-wrapper">
       <h3 class="text-center">Authors <%= @user.first_name %> Follows</h3>
       <br><br>
-        <table class="table" id="followings" style="width:50%>
+        <table class="table" id="followings">
         <tr class="hidden"></tr>
           <% @user.follower_followings.each do |following| %>
-            <% if @user != following.author %>
               <tr id="followings-table-<%= following.author.id %>">
               <td class="col-sm-4"></td>
               <td class="col-sm-2">
-                  <a href="#" data-toggle="popover" title="<%= following.author.first_name %> <%= following.author.last_name %>" data-content="<%= following.author.email %>" data-trigger="hover">
+              <% if current_user.present? && following.author == current_user %>
+                <%= link_to dashboard_path do %>
+                  <%= cl_image_tag(user_image_path_large(following.author), class:"avatar") %>
+                <% end %>
+              <% else %>
+                <a href="<%= user_path(following.author) %>" data-toggle="popover" data-content="<b><nobr><i class='fa fa-envelope-o'></i> <%= following.author.email %></nobr></b> " data-trigger="hover">
 
-                    <img src=" <%= cl_image_path(avatar_image_path(following.author)) %>">
-                  </a>
-                </td>
+                  <img src="<%= cl_image_path(user_image_path_large(following.author)) %>" class="avatar">
+                </a>
+              <% end %>
+
+              </td>
                 <td class="col-sm-3">
                   <h6><%= "#{following.author.first_name} #{following.author.last_name}" %></h6>
                 </td>
                 <td class="col-sm-3"></td>
 
                 </tr>
-            <% end %>
           <% end %>
         </table>
       </div>
@@ -40,10 +45,16 @@
               <td class="col-sm-4"></td>
 
               <td class="col-sm-2">
-                <a href="user_path(following.follower)" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
+              <% if current_user.present? && following.follower == current_user %>
+                <%= link_to dashboard_path do %>
+                  <%= cl_image_tag(user_image_path_large(following.follower), class:"avatar") %>
+                <% end %>
+              <% else %>
+                <a href="<%= user_path(following.follower)%>" data-toggle="popover" data-content="<b><nobr><i class='fa fa-envelope-o'></i> <%= following.follower.email %>" data-trigger="hover">
 
-                  <img src=" <%= cl_image_path(avatar_image_path(following.follower)) %>">
+                  <img src=" <%= cl_image_path(user_image_path_large(following.follower)) %>" class="avatar">
                   </a>
+                <% end %>
                 </td>
                 <td class="col-sm-3">
                   <h6><%= "#{following.follower.first_name} #{following.follower.last_name}" %></h6>
@@ -64,7 +75,7 @@
 <% content_for :after_js do %>
 
 <script>$(document).ready(function(){
-    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+  $('[data-toggle="popover"]').popover({ trigger: "hover", html : true });
 });</script>
 <!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
 <script>

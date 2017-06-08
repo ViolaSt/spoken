@@ -7,9 +7,44 @@
 <% end %>
 
 <!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3"> -->
-<div class="container">
-  <h1> <%= cl_image_tag(user_image_path_large(@user), class: "avatar-large") %> <%= @user.first_name %> <%= @user.last_name %></h1>
-    <p><%= @user.bio %></p>
+<!-- Author information -->
+  <div class="row padded-sm" >
+    <!-- User avatar picture -->
+    <div class="col-sm-1 col-sm-offset-3">
+      <%= link_to user_path(@user) do %>
+        <%= cl_image_tag(user_image_path_large(@user), class: "avatar-huge") %>
+      <% end %>
+    </div>
+    <!-- User first and last name -->
+    <div class="col-sm-5">
+
+      <ul class="list-inline">
+        <li>
+          <h5><%= @user.first_name %> <%= @user.last_name %></h5>
+        </li>
+
+        <!-- Checks if articles belongs to current user:
+        1. If true, button shows a link to edit profile
+        2. If false, rhen checks if user follows the author:
+          2.1 If false, buttons shows a link to follow the author
+          2.2 If true, buttons shows a link to unfollow the author -->
+
+          <li>
+            <% if @user == current_user %>
+            <%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: "btn btn-follow" %>
+            <% else %>
+            <%= link_to 'Following', unfollow_user_followings_path(@user), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_author_id(@user.id)}" %>
+            <%= link_to 'Follow', user_followings_path(@user), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_author_id(@user.id)}" %>
+            <% end %>
+          </li>
+
+        </ul>
+        <p><%= @user.tagline %></p>
+        <p><%= @user.bio %></p>
+
+      </div>
+    </div>
+
 </div>
 <div class="grey-wapper">
     <div class="tabs">

@@ -10,9 +10,9 @@
             <% if current_user != following.author %>
               <tr id="followings-table-<%= following.author.id %>">
               <td class="col-sm-2">
-                  <a href="#" data-toggle="popover" title="<%= following.author.first_name %> <%= following.author.last_name %>" data-content="<%= following.author.email %>" data-trigger="hover">
+                  <a href="<%= user_path(following.author) %>" data-toggle="popover" data-content="<b><nobr><i class='fa fa-envelope-o'></i> <%= following.author.email %></nobr> " data-trigger="hover">
 
-                    <img src=" <%= cl_image_path(avatar_image_path(following.author)) %>">
+                    <img src=" <%= cl_image_path(user_image_path_large(following.author)) %>" class="avatar">
                   </a>
                 </td class="col-sm-8">
                 <td>
@@ -40,9 +40,9 @@
             <% if current_user != following.follower %>
               <tr id="followers-table-<%=following.follower.id %>">
               <td class="col-sm-2">
-                <a href="user_path(following.follower)" data-toggle="popover" title="<%= following.follower.first_name %> <%= following.follower.last_name %>" data-content="<%= following.follower.email %>" data-trigger="hover">
+                <a href="<%= user_path(following.follower) %>" data-toggle="popover" data-content="<b><nobr><i class='fa fa-envelope-o'></i> <%= following.follower.email %></nobr>" data-trigger="hover">
 
-                  <img src=" <%= cl_image_path(avatar_image_path(following.follower)) %>">
+                  <img src=" <%= cl_image_path(user_image_path_large(following.follower)) %>" class="avatar">
                   </a>
                 </td>
                 <td class="col-sm-8">
@@ -68,7 +68,7 @@
 <% content_for :after_js do %>
 
 <script>$(document).ready(function(){
-    $('[data-toggle="popover"]').popover({ trigger: "hover" });
+  $('[data-toggle="popover"]').popover({ trigger: "hover", html : true });
 });</script>
 <!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
 <script>
