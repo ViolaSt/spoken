@@ -35,7 +35,7 @@ class ArticlesController < ApplicationController
     authorize @article
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to article_path(@article), notice: 'Article was successfully created.' }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        format.html { redirect_to @article}
+        format.html { redirect_to article_path(@article)}
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit }
