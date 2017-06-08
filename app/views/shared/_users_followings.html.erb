@@ -8,7 +8,6 @@
         <tr class="hidden"></tr>
           <% @user.follower_followings.each do |following| %>
               <tr id="followings-table-<%= following.author.id %>">
-              <td class="col-sm-4"></td>
               <td class="col-sm-2">
               <% if current_user.present? && following.author == current_user %>
                 <%= link_to dashboard_path do %>
@@ -22,10 +21,15 @@
               <% end %>
 
               </td>
-                <td class="col-sm-3">
+                <td class="col-sm-8">
                   <h6><%= "#{following.author.first_name} #{following.author.last_name}" %></h6>
                 </td>
-                <td class="col-sm-3"></td>
+                <td class="col-sm-2">
+                  <% if current_user.present? %>
+                    <%= link_to 'Following', unfollow_user_followings_path(following.author), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_follower_id(following.follower.id)}", data:{target: "#follow#{following.author.id}"}, id:"following#{following.author.id}" %>
+                    <%= link_to 'Follow', user_followings_path(following.follower), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_follower_id(following.follower.id)}", id:"follow#{following.author.id}", data:{target: "#following#{following.author.id}"}%>
+                  <% end %>
+                </td>
 
                 </tr>
           <% end %>
@@ -42,7 +46,6 @@
           <% @user.author_followings.each do |following| %>
             <% if @user != following.follower %>
               <tr id="followers-table-<%=following.follower.id %>">
-              <td class="col-sm-4"></td>
 
               <td class="col-sm-2">
               <% if current_user.present? && following.follower == current_user %>
@@ -56,10 +59,15 @@
                   </a>
                 <% end %>
                 </td>
-                <td class="col-sm-3">
+                <td class="col-sm-8">
                   <h6><%= "#{following.follower.first_name} #{following.follower.last_name}" %></h6>
                 </td>
-                <td class="col-sm-3"></td>
+                <td class="col-sm-2">
+                  <% if current_user.present? %>
+                    <%= link_to 'Following', unfollow_user_followings_path(following.author), remote: true, method: :delete, class: "btn btn-unfollow btn-block #{'hidden' unless current_user.follower_followings.find_by_follower_id(following.follower.id)}", data:{target: "#follow#{following.author.id}"}, id:"following#{following.author.id}" %>
+                    <%= link_to 'Follow', user_followings_path(following.follower), remote: true, method: :post, class: "btn btn-follow btn-block #{'hidden' if current_user.follower_followings.find_by_follower_id(following.follower.id)}", id:"follow#{following.author.id}", data:{target: "#following#{following.author.id}"}%>
+                  <% end %>
+                </td>
 
               </tr>
             <% end %>
