@@ -166,11 +166,13 @@
 <% end %>
 
   <!-- Comments -->
-  <div class="row padded-sm" id="comments">
+  <div class="row padded-sm">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <% if @article.comments.any? %>
-        <%= render @article.comments, article: @article %>
-      <% end %>
+      <div id="comments">
+        <% if @article.comments.any? %>
+          <%= render @article.comments, article: @article %>
+        <% end %>
+      </div>
     </div>
   </div>
 
