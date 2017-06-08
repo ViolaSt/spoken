@@ -63,9 +63,36 @@
     <div class="dropdown">
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-        <li><a href="#">Some mobile link</a></li>
-        <li><a href="#">Other one</a></li>
-        <li><a href="#">Other one</a></li>
+
+      <!-- link to create new article -->
+        <li>
+          <%= link_to new_article_path do %>
+            <i class="fa fa-microphone"></i> Create Article
+          <% end %>
+        </li>
+
+        <% if !user_signed_in? %>
+        <!-- link to log in -->
+          <li>
+            <%= link_to new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+            <i class="fa fa-sign-in"></i> Login
+            <% end %>
+          </li>
+
+          <% else %>
+        <!-- link to dashboard -->
+          <li>
+            <%= link_to dashboard_path do %>
+              <i class="fa fa-home"></i> <%= t(".profile", default: "Dashboard") %>
+            <% end %>
+          </li>
+        <!-- link to logout -->
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
