@@ -27,7 +27,7 @@ class User < ApplicationRecord
     followed_authors
   end
 
-
+  validates :first_name, :last_name, presence: true
   validates :email, uniqueness: true
   mount_uploader :photo, PhotoUploader
 
