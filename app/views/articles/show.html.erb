@@ -11,21 +11,21 @@
 <!-- Left side share Bar with like and recommend button -->
 <ul id="share">
 
-
   <!-- Like/Unlike button logic -->
 
   <!-- Has the user liked this article yet? -->
+  <% if current_user.present? %>
   <% if @article.user != current_user %>
   <li>
-    <!-- If false, it shows a like button that user can click -->
+    <!-- If false, it shows a like button (colored white) that user can click -->
     <%= link_to '', unlike_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart #{'hidden' unless @reading.like }" %>
 
-    <!-- If true, it shows a unlike button (uncolored, white) that user can click -->
+    <!-- If true, it shows a unlike button (colored green) that user can click -->
     <%= link_to '', like_article_readings_path(@article), remote: true, method: :post, class: "fa fa-heart-o #{'hidden' if @reading.like }" %>
   </li>
 
   <li>
-    <p id="like-count"> <%=  @article.readings.where(like: true).length %></p>
+    <p id="like-count"><%= @article.readings.where(like: true).length %></p>
   </li>
 
 
@@ -34,29 +34,30 @@
 
     <!-- Has the user recommended this article yet? -->
     <div class="recommended">
-      <% if current_user.present? %>
+      <% if @reading.recommended %>
 
-      <!-- If false, it shows a recommend button that user can click (pops up a modal to input description with that recommendation) -->
+      <!-- If false, it shows a recommend button (colored white) that user can click to add to recommendations -->
       <%= link_to '', unrecommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark" %>
 
       <% else %>
 
-      <!-- If true, it shows a unrecommend button (uncolored, white) that user can click -->
+      <!-- If true, it shows a unrecommend button (colored green) that user can click -->
       <%= link_to '', recommend_article_readings_path(@article), remote: true, method: :post, class: "fa fa-bookmark-o" %>
       <% end %>
+    <% end %>
     <% end %>
     </div>
   </li>
 
-<!-- Facebook Share Button
- -->  <li id="social-media-button-padding">
-   <%= social_share_button_tag(@article.title, :allow_sites => %w(facebook)) %>
+<!-- Facebook Share Button -->
+<li id="social-media-button-padding">
+<%= social_share_button_tag(@article.title, :allow_sites => %w(facebook)) %>
+</li>
 
-  </li>
 <!--   Twitter Share Button -->
-  <li d="social-media-button-padding">
-    <%= social_share_button_tag(@article.title, :allow_sites => %w(twitter)) %>
-  </li>
+<li d="social-media-button-padding">
+  <%= social_share_button_tag(@article.title, :allow_sites => %w(twitter)) %>
+</li>
 
 </ul>
 
@@ -76,6 +77,7 @@
         <li>
           <h5><%= @article.user.first_name %> <%= @article.user.last_name %></h5>
         </li>
+
 
         <!-- Checks if articles belongs to current user:
         1. If true, button shows a link to edit profile
@@ -100,47 +102,47 @@
         <% if @article.category? %>
             / <%= @article.category %></p>
         <% end %>
+
       </div>
-    </div>
 
-        <!-- Follow/Unfollow button logic -->
+      <!-- Follow/Unfollow button logic -->
 
-    <!-- Title and Tagline -->
-    <div class="row" id="title">
-      <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-        <h3><strong> <%= @article.title || 'Title' %></strong></h3>
+      <!-- Title and Tagline -->
+      <div class="row" id="title">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          <h3><strong> <%= @article.title || 'Title' %></strong></h3>
+        </div>
       </div>
-    </div>
 
-    <!-- cloudinary audio player -->
+      <!-- cloudinary audio player -->
 
-    <% if @article.audio? %>
-    <div class="row padded-sm">
-      <div class="col-sm-6 col-sm-offset-3">
+      <% if @article.audio? %>
+      <div class="row padded-sm">
+        <div class="col-sm-6 col-sm-offset-3">
 
-        <%= cl_image_tag(@article.photo, width: "100%") %>
+          <%= cl_image_tag(@article.photo, width: "100%") %>
+        </div>
       </div>
-    </div>
-    <div class="row padded-xs">
-      <div class="col-sm-6 col-sm-offset-3">
+      <div class="row padded-xs">
+        <div class="col-sm-6 col-sm-offset-3">
 
-        <%= cl_image_tag("#{@article.audio_public_id}.png", :height=>50, :width=>"100%", :flags=>"waveform", :resource_type=>"video", color: "#0FA3B1", background: "none")  %>
+          <%= cl_image_tag("#{@article.audio_public_id}.png", :height=>50, :width=>"100%", :flags=>"waveform", :resource_type=>"video", color: "#0FA3B1", background: "none")  %>
+        </div>
       </div>
-    </div>
-    <div class="row padded-xs">
-      <div class="col-sm-6 col-sm-offset-3">
+      <div class="row padded-xs">
+        <div class="col-sm-6 col-sm-offset-3">
 
-        <%= cl_video_tag(@article.audio_public_id, controls: true, "duration"=>true, height:100, width:"100%")%>
+          <%= cl_video_tag(@article.audio_public_id, controls: true, "duration"=>true, height:100, width:"100%")%>
+        </div>
       </div>
-    </div>
-    <% end %>
+      <% end %>
 
 
 
-    <!-- Description -->
-    <div class="row" id="description">
+      <!-- Description -->
+      <div class="row" id="description">
        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-          <p><%= @article.description || 'Description' %></p>
+        <p><%= @article.description || 'Description' %></p>
       </div>
     </div>
 
@@ -149,68 +151,68 @@
 
 
 
-  <!-- Comment-Form -->
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-    <div id="comment-counter">
-    <h5>
-      <%= pluralize @article.comments.size, "Comment" %>
-    </h5>
-  </div>
-</div>
-<% if user_signed_in? %>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-
-      <% @article.comments.blank? %>
-        <%= render 'shared/comment_form', article: @article, comment: @comment %>
-    </div>
-  </div>
-<% end %>
-
-  <!-- Comments -->
-  <div class="row padded-sm">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <div id="comments">
-        <% if @article.comments.any? %>
-          <%= render @article.comments, article: @article %>
-        <% end %>
+    <!-- Comment-Form -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <div id="comment-counter">
+          <h5>
+            <%= pluralize @article.comments.size, "Comment" %>
+          </h5>
+        </div>
       </div>
-    </div>
-  </div>
+      <% if user_signed_in? %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
-
-  <div class="row padded-sm">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-
-      <%= link_to articles_path do %>
-        <i class="fa fa-backward" aria-hidden="true"></i>
+          <% @article.comments.blank? %>
+          <%= render 'shared/comment_form', article: @article, comment: @comment %>
+        </div>
+      </div>
       <% end %>
-      &nbsp;
 
-      <!-- User only sees an edit button if the article is theirs -->
-      <% if policy(@article).edit? %>
-      <%= link_to edit_article_path(@article) do %>
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-      <% end %>
-      <% end %>
-      &nbsp;
-
-      <!-- User only sees a destroy button if the article is theirs -->
-      <% if policy(@article).destroy? %>
-      <%= link_to article_path(@article), method: :delete, data: {confirm: "Are you sure?"} do %>
-            <i class="fa fa-trash" aria-hidden="true"></i>
-      <% end %>
-      <% end %>
-    </div>
-  </div>
+      <!-- Comments -->
+      <div class="row padded-sm">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          <div id="comments">
+            <% if @article.comments.any? %>
+            <%= render @article.comments, article: @article %>
+            <% end %>
+          </div>
+        </div>
+      </div>
 
 
+      <div class="row padded-sm">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
-<!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
-<% content_for :after_js do %>
-<script>
-  $(document).ready(function() {
+          <%= link_to articles_path do %>
+          <i class="fa fa-backward" aria-hidden="true"></i>
+          <% end %>
+          &nbsp;
+
+          <!-- User only sees an edit button if the article is theirs -->
+          <% if policy(@article).edit? %>
+          <%= link_to edit_article_path(@article) do %>
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          <% end %>
+          <% end %>
+          &nbsp;
+
+          <!-- User only sees a destroy button if the article is theirs -->
+          <% if policy(@article).destroy? %>
+          <%= link_to article_path(@article), method: :delete, data: {confirm: "Are you sure?"} do %>
+          <i class="fa fa-trash" aria-hidden="true"></i>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+
+
+
+      <!-- JS script used on follow/like/recommended buttons to toggle without reloading the page -->
+      <% content_for :after_js do %>
+      <script>
+        $(document).ready(function() {
     // Toggle JS for follow/unfollow button
     $('.btn-unfollow').on('click', function() {
       $('.btn-follow').removeClass('hidden');
@@ -238,5 +240,3 @@
   });
 </script>
 <% end %>
-
-
